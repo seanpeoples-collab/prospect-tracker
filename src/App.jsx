@@ -493,28 +493,84 @@ export default function ProspectTracker() {
   const [syncStatus, setSyncStatus] = useState("idle"); // idle | syncing | success | error
   const [lastSynced, setLastSynced] = useState(() => { try { return localStorage.getItem("tol_last_synced")||null; } catch { return null; }});
 
-  const SHEETS_URL = "https://script.google.com/macros/s/AKfycbx6cLuRS2a9KK3aYtn4Dh-JsU2qoVDtEyQjRi1pe1-dKHcBnEI_akQGLErzN7ruTgxZ/exec";
-  const CHUNK_SIZE = 8;
+  const AIRTABLE_BASE = import.meta.env.VITE_AIRTABLE_BASE;
+  const AIRTABLE_TABLE = "Prospect Tracker";
+  const AIRTABLE_TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
+  const AIRTABLE_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${encodeURIComponent(AIRTABLE_TABLE)}`;
+  const AIRTABLE_HEADERS = {
+    "Authorization": `Bearer ${AIRTABLE_TOKEN}`,
+    "Content-Type": "application/json",
+  };
 
   const syncToSheets = async () => {
     setSyncStatus("syncing");
     try {
-      const chunks = [];
-      for (let i = 0; i < prospects.length; i += CHUNK_SIZE) {
-        chunks.push(prospects.slice(i, i + CHUNK_SIZE));
-      }
-      const total = chunks.length;
-
-      for (let i = 0; i < chunks.length; i++) {
-        const encoded = encodeURIComponent(JSON.stringify(chunks[i]));
-        const res = await fetch(`${SHEETS_URL}?data=${encoded}&chunk=${i}&total=${total}`);
+      // 1. Fetch all existing records so we can match by prospect ID
+      let existingRecords = [];
+      let offset = null;
+      do {
+        const url = offset ? `${AIRTABLE_URL}?offset=${offset}` : AIRTABLE_URL;
+        const res = await fetch(url, { headers: AIRTABLE_HEADERS });
         const json = await res.json();
-        if (!json.success) {
-          console.error("Chunk error:", json.error);
-          setSyncStatus("error");
-          setTimeout(() => setSyncStatus("idle"), 4000);
-          return;
+        if (!res.ok) throw new Error(json.error?.message || "Failed to fetch records");
+        existingRecords = existingRecords.concat(json.records || []);
+        offset = json.offset || null;
+      } while (offset);
+
+      // Build a map of prospect id -> airtable record id
+      const recordMap = {};
+      existingRecords.forEach(r => {
+        if (r.fields["ID"]) recordMap[r.fields["ID"]] = r.id;
+      });
+
+      // 2. Split prospects into creates and updates
+      const toCreate = [];
+      const toUpdate = [];
+      prospects.forEach(p => {
+        const fields = {
+          "ID": String(p.id),
+          "Name": p.name,
+          "Sector": p.sector,
+          "Stage": p.stage,
+          "Budget": p.budget,
+          "Story Readiness": p.storyReady,
+          "Priority": p.priority ? "Yes" : "No",
+          "Mission": p.mission,
+          "Contacts": p.contacts,
+          "Notes": p.notes,
+          "Next Action": p.nextAction,
+          "Last Touch": p.lastTouch,
+          "Website": p.website,
+        };
+        if (recordMap[String(p.id)]) {
+          toUpdate.push({ id: recordMap[String(p.id)], fields });
+        } else {
+          toCreate.push({ fields });
         }
+      });
+
+      // 3. Create new records in batches of 10 (Airtable limit)
+      for (let i = 0; i < toCreate.length; i += 10) {
+        const batch = toCreate.slice(i, i + 10);
+        const res = await fetch(AIRTABLE_URL, {
+          method: "POST",
+          headers: AIRTABLE_HEADERS,
+          body: JSON.stringify({ records: batch }),
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error?.message || "Create failed");
+      }
+
+      // 4. Update existing records in batches of 10
+      for (let i = 0; i < toUpdate.length; i += 10) {
+        const batch = toUpdate.slice(i, i + 10);
+        const res = await fetch(AIRTABLE_URL, {
+          method: "PATCH",
+          headers: AIRTABLE_HEADERS,
+          body: JSON.stringify({ records: batch }),
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error?.message || "Update failed");
       }
 
       const now = new Date().toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"});
