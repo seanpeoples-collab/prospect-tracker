@@ -495,7 +495,7 @@ export default function ProspectTracker() {
 
   const AIRTABLE_BASE = "appW7briSaV0w3qnH";
   const AIRTABLE_TABLE = "Prospect Tracker";
-  const AIRTABLE_TOKEN = "patgZhdu21y3QFVMT.bd4228bc2176cf8219825130934c582aef4642a29d6c74984efae845d95d79b7";
+  const AIRTABLE_TOKEN = "patJA17IX5TdSq9hL.7d63a1431762497895edc673ace4eaa4b662a89959f0de0e81f1b0c9f190a800";
   const AIRTABLE_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${encodeURIComponent(AIRTABLE_TABLE)}`;
   const AIRTABLE_HEADERS = {
     "Authorization": `Bearer ${AIRTABLE_TOKEN}`,
