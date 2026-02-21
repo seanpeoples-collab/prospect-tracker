@@ -493,9 +493,9 @@ export default function ProspectTracker() {
   const [syncStatus, setSyncStatus] = useState("idle"); // idle | syncing | success | error
   const [lastSynced, setLastSynced] = useState(() => { try { return localStorage.getItem("tol_last_synced")||null; } catch { return null; }});
 
-  const AIRTABLE_BASE = import.meta.env.VITE_AIRTABLE_BASE;
+  const AIRTABLE_BASE = "appW7briSaV0w3qnH";
   const AIRTABLE_TABLE = "Prospect Tracker";
-  const AIRTABLE_TOKEN = import.meta.env.VITE_AIRTABLE_TOKEN;
+  const AIRTABLE_TOKEN = "patgZhdu21y3QFVMT.bd4228bc2176cf8219825130934c582aef4642a29d6c74984efae845d95d79b7";
   const AIRTABLE_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${encodeURIComponent(AIRTABLE_TABLE)}`;
   const AIRTABLE_HEADERS = {
     "Authorization": `Bearer ${AIRTABLE_TOKEN}`,
