@@ -493,7 +493,7 @@ export default function ProspectTracker() {
   const [syncStatus, setSyncStatus] = useState("idle"); // idle | syncing | success | error
   const [lastSynced, setLastSynced] = useState(() => { try { return localStorage.getItem("tol_last_synced")||null; } catch { return null; }});
 
-  const SHEETS_URL = "https://script.google.com/macros/s/AKfycbz-OJColEe0g0Oe-meVuHfeksEgvaT7-aZ3xx-n9Zgvqhw45vwo7BaQjlS6nvt4u6oI/exec";
+  const SHEETS_URL = "https://script.google.com/macros/s/AKfycbx6cLuRS2a9KK3aYtn4Dh-JsU2qoVDtEyQjRi1pe1-dKHcBnEI_akQGLErzN7ruTgxZ/exec";
   const CHUNK_SIZE = 8;
 
   const syncToSheets = async () => {
