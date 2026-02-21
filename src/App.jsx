@@ -494,7 +494,7 @@ export default function ProspectTracker() {
   const [lastSynced, setLastSynced] = useState(() => { try { return localStorage.getItem("tol_last_synced")||null; } catch { return null; }});
 
   const AIRTABLE_BASE = "appW7briSaV0w3qnH";
-  const AIRTABLE_TABLE = "Prospect Tracker";
+  const AIRTABLE_TABLE = "Table 1";
   const AIRTABLE_TOKEN = "patJA17IX5TdSq9hL.7d63a1431762497895edc673ace4eaa4b662a89959f0de0e81f1b0c9f190a800";
   const AIRTABLE_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${encodeURIComponent(AIRTABLE_TABLE)}`;
   const AIRTABLE_HEADERS = {
