@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 
 const STAGES = ["Identified","Researching","Warm","Outreach Sent","In Conversation","Proposal Sent","Partner"];
-const SECTORS = ["Health & Medicine","Science & Research","Social Services","Mental Health","Education","Environment","Advocacy & Policy","Arts & Culture","Community Development","Other"];
+const SECTORS = ["Health & Medicine","Science & Research","Social Services","Mental Health","Education","Environment","Advocacy & Policy","Arts & Culture","Community Development","Criminal Justice","Labor & Workforce","Housing","Food & Agriculture","Immigration","Philanthropy","Veterans","Disability","LGBTQ+","Racial Equity","Public Media","Other"];
 const BUDGET_SIGNALS = ["Unknown","Low (<$50k)","Mid ($50k–$150k)","High ($150k+)","Institutional ($20M+ org budget)"];
 const STORY_READINESS = ["No Story Yet","Story Forming","Clear Pitch","Pitch Sent"];
 
@@ -467,6 +467,755 @@ const ALL_PROSPECTS = [
     notes:"APHA has been operating for 150+ years and is the largest public health professional org in the US. 150th anniversary was in 2022 — they may be building toward the next campaign. Pitch: a doc on the invisible infrastructure of public health: disease surveillance, community health workers, local health departments. The pandemic made this story urgent; APHA could sponsor the film that explains what we almost lost.",
     nextAction:"Check APHA's media center; identify comms director and assess doc appetite",
     lastTouch:"", website:"apha.org", priority:true
+  },
+
+  // ── HEALTH & MEDICINE (continued) ─────────────────────────────────────────
+  {
+    id:49, name:"American Nurses Association (ANA)", sector:"Health & Medicine",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    mission:"~4M RNs represented. Annual budget ~$30M+. Nursing workforce crisis, workplace safety, equitable care.",
+    contacts:"Chief Communications Officer; Media Relations Director",
+    notes:"Nursing has never been more cinematically ready as a subject. Pandemic burnout, staffing ratios, racial disparities in nursing — ANA has the platform and urgency. Pitch: a doc following nurses across clinical settings over one year.",
+    nextAction:"Review ANA's media hub; identify Chief Comms Officer",
+    lastTouch:"", website:"nursingworld.org", priority:true
+  },
+  {
+    id:50, name:"American Association of Nurse Practitioners (AANP)", sector:"Health & Medicine",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~360,000 NP members. Annual budget ~$25M. Access-to-care advocacy, scope of practice expansion.",
+    contacts:"Communications Director",
+    notes:"NPs are the fastest-growing segment of the healthcare workforce — and the story of expanding scope-of-practice fights is a compelling David vs. Goliath doc narrative. High moment given primary care deserts.",
+    nextAction:"Review AANP's video/media presence; check for advocacy campaign assets",
+    lastTouch:"", website:"aanp.org", priority:true
+  },
+  {
+    id:51, name:"American College of Emergency Physicians (ACEP)", sector:"Health & Medicine",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    mission:"~40,000 emergency physicians. Annual budget ~$35M+. ER overcrowding, boarding crisis, mental health in the ED.",
+    contacts:"Director of Communications",
+    notes:"The American ER is in collapse — psychiatric boarding, violence against staff, ambulance diversion. ACEP members live this daily. A doc inside an overwhelmed urban ED would be viscerally powerful and policy-relevant.",
+    nextAction:"Review ACEP's media center; look for any prior film or video work",
+    lastTouch:"", website:"acep.org", priority:true
+  },
+  {
+    id:52, name:"National Rural Health Association (NRHA)", sector:"Health & Medicine",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"21,000+ members including rural hospitals, clinics, and providers. Rural health equity advocacy.",
+    contacts:"Communications Director",
+    notes:"Rural health deserts, hospital closures, and the people left behind are one of the most powerful and underreported American stories. NRHA has the data and the network. A doc on a single rural community losing its hospital would be extraordinary.",
+    nextAction:"Review NRHA's existing communications and advocacy campaigns",
+    lastTouch:"", website:"ruralhealth.us", priority:true
+  },
+  {
+    id:53, name:"Association of Maternal & Child Health Programs (AMCHP)", sector:"Health & Medicine",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"State and territorial MCH programs. Maternal mortality, infant health equity, preterm birth.",
+    contacts:"Communications Director",
+    notes:"Maternal mortality in the US — especially for Black women — is a defining health crisis. AMCHP connects the policy infrastructure to the human stories. A doc on maternal mortality disparities would have enormous reach.",
+    nextAction:"Review AMCHP's media strategy; assess doc appetite",
+    lastTouch:"", website:"amchp.org", priority:true
+  },
+  {
+    id:54, name:"American Diabetes Association (ADA)", sector:"Health & Medicine",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~37M Americans with diabetes; major research and advocacy org. Annual budget ~$200M+. Health equity, insulin pricing.",
+    contacts:"Chief Communications Officer",
+    notes:"Insulin pricing and diabetes as a poverty disease are among the most powerful health equity narratives in America. ADA has budget, scale, and an urgent policy moment. A doc on insulin access could anchor a major campaign.",
+    nextAction:"Review ADA's existing video content and media campaigns",
+    lastTouch:"", website:"diabetes.org", priority:true
+  },
+  {
+    id:55, name:"American Heart Association (AHA)", sector:"Health & Medicine",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"Largest voluntary health org in the US. Annual budget ~$900M+. Cardiovascular disease equity, research funding.",
+    contacts:"Chief Communications Officer; SVP of Communications",
+    notes:"AHA has enormous resources and a national media infrastructure — but their documentary-scale storytelling has been limited. Heart disease as a racial equity issue is a powerful pitch. Note: large org with established agency relationships; harder entry point.",
+    nextAction:"Research AHA's existing media partners; assess what differentiates a Think Out Loud approach",
+    lastTouch:"", website:"heart.org", priority:false
+  },
+  {
+    id:56, name:"Alzheimer's Association", sector:"Health & Medicine",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$320M annual budget. Alzheimer's research, caregiving support, dementia advocacy.",
+    contacts:"Chief Communications Officer",
+    notes:"The caregiver story behind Alzheimer's is deeply human and cinematically powerful. With the first disease-modifying drugs now approved, the policy stakes are enormous. A doc following caregivers and patients through diagnosis and treatment would be timely.",
+    nextAction:"Review Alzheimer's Association media hub; look for any prior documentary involvement",
+    lastTouch:"", website:"alz.org", priority:true
+  },
+  {
+    id:57, name:"American College of Rheumatology (ACR)", sector:"Health & Medicine",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~9,000 rheumatologists. Autoimmune diseases, chronic pain, drug access advocacy.",
+    contacts:"Communications Director",
+    notes:"Autoimmune diseases disproportionately affect women and are chronically under-diagnosed. ACR could commission a doc on the years-long odyssey to diagnosis — a story millions of women live but rarely see on screen.",
+    nextAction:"Review ACR's existing content; check for any video campaigns",
+    lastTouch:"", website:"rheumatology.org", priority:false
+  },
+  {
+    id:58, name:"Society of General Internal Medicine (SGIM)", sector:"Health & Medicine",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"3,000+ general internists. Primary care workforce crisis, health equity, social determinants.",
+    contacts:"Communications Director",
+    notes:"Primary care is disappearing in America — fewer medical students choose it, rural areas go unserved. SGIM members see this daily. A doc on the future of primary care would be timely and policy-relevant.",
+    nextAction:"Review SGIM's media presence; assess comms budget signals",
+    lastTouch:"", website:"sgim.org", priority:false
+  },
+
+  // ── SCIENCE & RESEARCH (continued) ────────────────────────────────────────
+  {
+    id:59, name:"American Chemical Society (ACS)", sector:"Science & Research",
+    stage:"Researching", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    mission:"~160,000 chemists and chemical engineers. Annual budget ~$500M+. Science communication, chemistry education.",
+    contacts:"Director of Communications; Executive Director of Public Affairs",
+    notes:"Strong existing relationship — leverage for next project. Chemistry underpins everything from pharmaceuticals to climate solutions but is deeply misunderstood publicly. Pitch an ACS-commissioned doc on chemistry's role in solving the defining problems of our era.",
+    nextAction:"Follow up on ACS 150th anniversary content; propose next commissioned project",
+    lastTouch:"2024-12-01", website:"acs.org", priority:true
+  },
+  {
+    id:60, name:"American Institute of Physics (AIP)", sector:"Science & Research",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"10 member societies, 120,000+ physical scientists. Physics education and public understanding.",
+    contacts:"Communications Director",
+    notes:"Physics is the foundation of everything from GPS to cancer imaging — but remains opaque to the public. AIP could commission a doc bridging pure science and daily life.",
+    nextAction:"Review AIP's Niels Bohr Library media archives; assess comms capacity",
+    lastTouch:"", website:"aip.org", priority:false
+  },
+  {
+    id:61, name:"American Geophysical Union (AGU)", sector:"Science & Research",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~60,000 Earth and space scientists. Climate, natural hazards, ocean systems.",
+    contacts:"Communications Director",
+    notes:"AGU scientists are on the front lines of climate measurement — tracking sea level rise, glacier retreat, extreme heat. A doc following field scientists over a research season would be visually stunning and deeply urgent.",
+    nextAction:"Review AGU's communications; check for existing media partnerships",
+    lastTouch:"", website:"agu.org", priority:true
+  },
+  {
+    id:62, name:"Society for Neuroscience (SfN)", sector:"Science & Research",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~36,000 neuroscientists. Brain research, mental health neuroscience, neurological disease.",
+    contacts:"Communications Director",
+    notes:"The neuroscience of mental illness, addiction, and trauma has never been more publicly relevant. SfN members are doing the foundational research that informs treatment. A doc translating cutting-edge brain science could be transformative for public understanding.",
+    nextAction:"Review SfN's public-facing communications; assess doc appetite",
+    lastTouch:"", website:"sfn.org", priority:true
+  },
+  {
+    id:63, name:"American Anthropological Association (AAA)", sector:"Science & Research",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~10,000 anthropologists. Cultural diversity, race, migration, climate adaptation.",
+    contacts:"Communications Director",
+    notes:"Anthropology has the richest subject matter of any discipline but the least public presence. AAA could commission a doc on what anthropologists are learning about how communities are adapting to climate change and demographic shifts.",
+    nextAction:"Review AAA's public communications and media; check for any prior video work",
+    lastTouch:"", website:"americananthro.org", priority:false
+  },
+  {
+    id:64, name:"Geological Society of America (GSA)", sector:"Science & Research",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~22,000 geoscientists. Natural hazards, climate, water resources, critical minerals.",
+    contacts:"Communications Director",
+    notes:"Critical minerals for the energy transition — lithium, cobalt, rare earths — are one of the defining geopolitical stories. GSA scientists are at the center. A doc on the geology of the clean energy future would be timely.",
+    nextAction:"Review GSA's media presence; check for any video content",
+    lastTouch:"", website:"geosociety.org", priority:false
+  },
+
+  // ── EDUCATION (continued) ─────────────────────────────────────────────────
+  {
+    id:65, name:"National Education Association (NEA)", sector:"Education",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~3M educators. Largest labor union in the US. Teacher pay, public school funding, student equity.",
+    contacts:"Chief Communications Officer",
+    notes:"The teacher retention crisis is one of the most consequential and underreported stories in American public life. NEA has massive reach. A doc following first-year teachers in underresourced schools would be both humanizing and politically potent.",
+    nextAction:"Review NEA's media infrastructure; assess interest in documentary-scale work",
+    lastTouch:"", website:"nea.org", priority:false
+  },
+  {
+    id:66, name:"American Federation of Teachers (AFT)", sector:"Education",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~1.7M educators, paraprofessionals, and school staff. Teacher workforce, public school equity.",
+    contacts:"Communications Director",
+    notes:"AFT and NEA are distinct orgs with different political positioning — worth separate approaches. AFT's urban focus makes for a compelling doc angle on the inner-city school as community anchor.",
+    nextAction:"Research AFT's existing media partnerships; identify comms lead",
+    lastTouch:"", website:"aft.org", priority:false
+  },
+  {
+    id:67, name:"Association for Supervision and Curriculum Development (ASCD)", sector:"Education",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~100,000 educators, administrators, instructional coaches. Curriculum equity, whole child education.",
+    contacts:"Communications Director",
+    notes:"Curriculum design and instructional equity rarely make it to documentary — but ASCD's 'whole child' framework is a compelling organizing concept for a doc about what school could be.",
+    nextAction:"Review ASCD's video presence; check annual Whole Child Network",
+    lastTouch:"", website:"ascd.org", priority:false
+  },
+  {
+    id:68, name:"Council for Exceptional Children (CEC)", sector:"Education",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~27,000 special educators, therapists, researchers. Disability education rights, inclusion, IEP advocacy.",
+    contacts:"Communications Director",
+    notes:"Special education is chronically underfunded and deeply personal. A doc following several families through the IEP process — their fights for inclusion and services — would be emotionally powerful and policy-relevant.",
+    nextAction:"Review CEC's current communications; look for any prior video campaigns",
+    lastTouch:"", website:"exceptionalchildren.org", priority:true
+  },
+  {
+    id:69, name:"National Association of Secondary School Principals (NASSP)", sector:"Education",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~18,000 middle and high school principals and administrators.",
+    contacts:"Communications Director",
+    notes:"The principal as a community leader holding a school together — often without adequate resources — is a powerful and underexplored documentary subject. NASSP could commission a verité doc inside one school over an academic year.",
+    nextAction:"Review NASSP's media and advocacy campaigns",
+    lastTouch:"", website:"nassp.org", priority:false
+  },
+  {
+    id:70, name:"Institute for Higher Education Policy (IHEP)", sector:"Education",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"Nonpartisan policy org focused on college access and success for low-income students and students of color.",
+    contacts:"Communications Director",
+    notes:"IHEP's equity data tells a story of who gets to finish college and who doesn't. A doc translating their research into human stories of first-gen students navigating higher ed would have enormous reach.",
+    nextAction:"Review IHEP's current media and communications strategy",
+    lastTouch:"", website:"ihep.org", priority:true
+  },
+
+  // ── ENVIRONMENT (continued) ────────────────────────────────────────────────
+  {
+    id:71, name:"Natural Resources Defense Council (NRDC)", sector:"Environment",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$175M annual budget. Environmental law, climate policy, clean energy, ocean and wilderness protection.",
+    contacts:"Chief Communications Officer; Media Director",
+    notes:"NRDC has the largest media operation of any environmental org — but no branded documentary history. Their legal victories and policy campaigns offer rich narrative material. Approach as a complement to their existing communications, not a replacement.",
+    nextAction:"Review NRDC's media strategy; identify comms leadership",
+    lastTouch:"", website:"nrdc.org", priority:false
+  },
+  {
+    id:72, name:"Defenders of Wildlife", sector:"Environment",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$40M annual budget. Wolf recovery, endangered species, wildlife corridors, coexistence.",
+    contacts:"Communications Director",
+    notes:"Wildlife corridors and the recovery of apex predators like wolves and mountain lions are visually stunning and scientifically significant. Defenders could commission a doc on coexistence — ranchers, wildlife scientists, and wolves sharing the same landscape.",
+    nextAction:"Review Defenders' existing video content; check YouTube for campaign films",
+    lastTouch:"", website:"defenders.org", priority:true
+  },
+  {
+    id:73, name:"Ocean Conservancy", sector:"Environment",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$40M annual budget. Ocean health, plastic pollution, Arctic, fisheries.",
+    contacts:"Communications Director",
+    notes:"Ocean plastic and the ghost gear crisis are visually compelling and deeply alarming. Ocean Conservancy's Trash Free Seas program is built around this data. A doc following a cleanup team through a season would be powerful.",
+    nextAction:"Review Ocean Conservancy's existing video campaigns; check for any branded content work",
+    lastTouch:"", website:"oceanconservancy.org", priority:true
+  },
+  {
+    id:74, name:"American Rivers", sector:"Environment",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$20M annual budget. River restoration, dam removal, drinking water, tribal water rights.",
+    contacts:"Communications Director",
+    notes:"Dam removal is one of the great underreported environmental success stories. American Rivers has led dozens of removals — returning rivers to life. A time-lapse and verité doc on a single major dam removal could be stunning.",
+    nextAction:"Review American Rivers' existing media; identify comms lead",
+    lastTouch:"", website:"americanrivers.org", priority:true
+  },
+  {
+    id:75, name:"Wildlife Conservation Society (WCS)", sector:"Environment",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$300M annual budget. Global wildlife conservation, climate adaptation, species protection.",
+    contacts:"Director of Communications",
+    notes:"WCS has scientists operating in some of the most remote and visually spectacular places on Earth. Strong alignment with NatGeo experience. Pitch: a doc following WCS field scientists during a critical year in a threatened ecosystem.",
+    nextAction:"Review WCS's existing media partnerships; check for any branded doc work",
+    lastTouch:"", website:"wcs.org", priority:true
+  },
+  {
+    id:76, name:"Rainforest Alliance", sector:"Environment",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$100M annual budget. Sustainable agriculture, forest conservation, climate-smart farming.",
+    contacts:"Communications Director",
+    notes:"The Rainforest Alliance certifies millions of acres — but few consumers know what that work actually looks like on the ground. A doc following a certification team through farms in the Amazon basin would be visually powerful.",
+    nextAction:"Review Rainforest Alliance's existing branded content",
+    lastTouch:"", website:"rainforest-alliance.org", priority:false
+  },
+  {
+    id:77, name:"Center for Biological Diversity", sector:"Environment",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~$30M annual budget. Endangered species litigation, climate, reproductive rights.",
+    contacts:"Communications Director",
+    notes:"CBD wins major legal battles for species most Americans have never heard of. A doc on a single ESA listing fight — from petition to court to habitat recovery — would be a perfect legal-environmental thriller.",
+    nextAction:"Review CBD's existing video; assess capacity for doc commission",
+    lastTouch:"", website:"biologicaldiversity.org", priority:true
+  },
+
+  // ── ADVOCACY & POLICY (continued) ─────────────────────────────────────────
+  {
+    id:78, name:"The Leadership Conference on Civil and Human Rights", sector:"Advocacy & Policy",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"Coalition of 230+ national organizations. Voting rights, civil rights enforcement, criminal justice.",
+    contacts:"Communications Director",
+    notes:"The voting rights story — from the Shelby County decision to state-level suppression efforts — is one of the defining civil rights battles of our era. The Leadership Conference coordinates the coalition response. A doc on the 2024-2026 voting rights fight would be historically significant.",
+    nextAction:"Review The Leadership Conference's existing media strategy",
+    lastTouch:"", website:"civilrights.org", priority:true
+  },
+  {
+    id:79, name:"National Partnership for Women & Families", sector:"Advocacy & Policy",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$10M budget. Workplace equity, paid leave, reproductive health, family economic security.",
+    contacts:"Communications Director",
+    notes:"Paid family leave is one of the most human policy stories available — and the US remains an outlier. National Partnership has the policy depth. A doc following families through the paid leave fight would be emotionally resonant.",
+    nextAction:"Review National Partnership's existing video and media campaigns",
+    lastTouch:"", website:"nationalpartnership.org", priority:true
+  },
+  {
+    id:80, name:"Disability Rights Advocates (DRA)", sector:"Advocacy & Policy",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"National legal center for disability rights. ADA enforcement, education access, healthcare discrimination.",
+    contacts:"Communications Director",
+    notes:"Disability rights cases rarely reach public consciousness — but DRA wins cases that transform daily life for millions. A doc following a multi-year DRA case would be a powerful legal-human rights film.",
+    nextAction:"Review DRA's existing communications; look for any media partnerships",
+    lastTouch:"", website:"dralegal.org", priority:true
+  },
+  {
+    id:81, name:"UnidosUS (formerly NCLR)", sector:"Advocacy & Policy",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~300 affiliate orgs; largest Latino civil rights org. Immigration, education, health, economic equity.",
+    contacts:"Chief Communications Officer",
+    notes:"UnidosUS represents 60M+ Latinos but is rarely seen in documentary-scale storytelling. Immigration enforcement, DACA, health access — all are urgent. A doc on a year in the life of a UnidosUS affiliate serving a border community would be extraordinary.",
+    nextAction:"Review UnidosUS's existing media strategy; assess doc appetite",
+    lastTouch:"", website:"unidosus.org", priority:true
+  },
+  {
+    id:82, name:"National Urban League (NUL)", sector:"Advocacy & Policy",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~100 affiliates; 100+ years of economic empowerment for Black Americans. Workforce, housing, education.",
+    contacts:"Chief Communications Officer",
+    notes:"The National Urban League has the prestige and the network — and its State of Black America report is a defining annual document. A doc marking a major NUL milestone year or following an affiliate's work in a single city would be powerful.",
+    nextAction:"Review NUL's existing video content; check anniversary years",
+    lastTouch:"", website:"nul.org", priority:true
+  },
+  {
+    id:83, name:"NAACP Legal Defense Fund (LDF)", sector:"Advocacy & Policy",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$30M budget. Civil rights law, voting rights, school integration, criminal justice.",
+    contacts:"Communications Director",
+    notes:"LDF is the legal arm of the civil rights movement — and its current caseload is as urgent as any in its history. A doc following an LDF attorney through a landmark case would be the definitive civil rights legal film of this decade.",
+    nextAction:"Review LDF's media strategy; identify communications lead",
+    lastTouch:"", website:"naacpldf.org", priority:true
+  },
+  {
+    id:84, name:"Center for American Progress (CAP)", sector:"Advocacy & Policy",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$80M budget. Progressive policy research. Climate, health care, housing, immigration.",
+    contacts:"Communications Director",
+    notes:"CAP has enormous communications infrastructure but minimal documentary presence. Their data and reports create the architecture for powerful films — but they'd need a third-party producer to realize them. Approach as a co-production or sponsored content conversation.",
+    nextAction:"Review CAP's existing media; assess appetite for branded doc work",
+    lastTouch:"", website:"americanprogress.org", priority:false
+  },
+
+  // ── SOCIAL SERVICES (continued) ───────────────────────────────────────────
+  {
+    id:85, name:"Feeding America", sector:"Social Services",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    mission:"~$4B revenue (food value + cash). 200+ food banks, 60,000+ food pantries. Food insecurity, SNAP advocacy.",
+    contacts:"Chief Communications Officer",
+    notes:"Food insecurity affects 44M Americans but rarely breaks through as a sustained documentary subject. Feeding America's network spans rural, suburban, and urban — a doc following one food bank through a year would reveal a hidden America.",
+    nextAction:"Review Feeding America's existing video campaigns; assess branded doc appetite",
+    lastTouch:"", website:"feedingamerica.org", priority:true
+  },
+  {
+    id:86, name:"Catholic Charities USA", sector:"Social Services",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$4B in services. 165 local agencies. Immigration, refugee resettlement, poverty relief.",
+    contacts:"Communications Director",
+    notes:"Catholic Charities is one of the largest social service networks in the country — and its refugee resettlement work is deeply timely. A doc following a refugee family and the local Catholic Charities agency serving them could be extraordinarily moving.",
+    nextAction:"Review Catholic Charities' existing media; assess appetite for film investment",
+    lastTouch:"", website:"catholiccharitiesusa.org", priority:false
+  },
+  {
+    id:87, name:"National Domestic Violence Hotline (The Hotline)", sector:"Social Services",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~$15M budget. DV crisis intervention, safety planning, technology-facilitated abuse.",
+    contacts:"Communications Director",
+    notes:"The Hotline sits at the intersection of crisis intervention and systemic advocacy. A doc on the advocates who answer calls — and the invisible epidemic they're navigating — could be deeply powerful if handled with care.",
+    nextAction:"Review The Hotline's existing media; assess sensitivity protocols for doc approach",
+    lastTouch:"", website:"thehotline.org", priority:true
+  },
+  {
+    id:88, name:"National Center for Missing & Exploited Children (NCMEC)", sector:"Social Services",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$50M budget. Child safety, exploitation prevention, victim reunification.",
+    contacts:"Communications Director",
+    notes:"NCMEC's work spans law enforcement collaboration, technology policy, and survivor support — each thread a compelling documentary subject. A doc on the forensic analysts and case coordinators working missing children cases would be powerful if carefully handled.",
+    nextAction:"Review NCMEC's existing communications; assess sensitivity protocols",
+    lastTouch:"", website:"missingkids.org", priority:false
+  },
+  {
+    id:89, name:"Urban Institute", sector:"Social Services",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$100M budget. Nonpartisan policy research. Housing, wealth gaps, criminal justice, health.",
+    contacts:"Communications Director",
+    notes:"Urban Institute produces the most rigorous equity data in the country but has minimal video presence. A doc translating their research into human stories — following the data behind wealth gaps or housing instability — could be transformational.",
+    nextAction:"Review Urban Institute's existing communications strategy",
+    lastTouch:"", website:"urban.org", priority:false
+  },
+  {
+    id:90, name:"Covenant House", sector:"Social Services",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    mission:"~$140M budget. Youth homelessness, trafficking prevention, transitional housing.",
+    contacts:"Chief Communications Officer",
+    notes:"Youth homelessness and aging out of foster care are among the most powerful and underreported stories in America. Covenant House serves youth in 31 cities. A doc inside a Covenant House shelter over a year could be one of the most important social justice films of this decade.",
+    nextAction:"Review Covenant House's existing media; check for any prior film work",
+    lastTouch:"", website:"covenanthouse.org", priority:true
+  },
+
+  // ── COMMUNITY DEVELOPMENT (continued) ────────────────────────────────────
+  {
+    id:91, name:"Local Initiatives Support Corporation (LISC)", sector:"Community Development",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$300M+. Community development finance. Affordable housing, small business, rural revitalization.",
+    contacts:"Communications Director",
+    notes:"LISC finances the physical transformation of disinvested communities — a deeply visual story. A doc following a LISC-financed affordable housing development from groundbreaking to occupancy, through the eyes of residents, would be powerful.",
+    nextAction:"Review LISC's existing communications; assess appetite for doc commission",
+    lastTouch:"", website:"lisc.org", priority:true
+  },
+  {
+    id:92, name:"Enterprise Community Partners", sector:"Community Development",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$300M+ annual investments. Affordable housing finance, economic mobility, climate resilience.",
+    contacts:"Communications Director",
+    notes:"Similar to LISC but with a stronger climate-resilience framing for housing. Their work on green affordable housing offers a compelling doc angle at the intersection of housing justice and climate adaptation.",
+    nextAction:"Review Enterprise's existing media; differentiate approach from LISC pitch",
+    lastTouch:"", website:"enterprisecommunity.org", priority:false
+  },
+  {
+    id:93, name:"National League of Cities (NLC)", sector:"Community Development",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~2,900 cities and towns. Municipal governance, infrastructure, equity, climate resilience.",
+    contacts:"Communications Director",
+    notes:"Cities are where climate policy, equity, and democracy intersect most visibly. NLC could commission a doc on how a handful of peer cities are tackling the same interlocking crises in very different ways.",
+    nextAction:"Review NLC's existing media and communications strategy",
+    lastTouch:"", website:"nlc.org", priority:false
+  },
+  {
+    id:94, name:"National Congress of American Indians (NCAI)", sector:"Community Development",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~500 tribal nation members. Tribal sovereignty, federal trust responsibility, treaty rights, Native data.",
+    contacts:"Communications Director",
+    notes:"Tribal sovereignty and the fight for treaty rights are among the most underrepresented stories in American documentary. NCAI coordinates advocacy across 500+ nations — a doc on a major tribal sovereignty fight would be historically significant.",
+    nextAction:"Review NCAI's existing communications; approach with genuine partnership framing",
+    lastTouch:"", website:"ncai.org", priority:true
+  },
+  {
+    id:95, name:"National Association of Counties (NACo)", sector:"Community Development",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~3,000 county governments. Rural services, public health infrastructure, criminal justice, infrastructure.",
+    contacts:"Communications Director",
+    notes:"Counties are the invisible layer of American government — running jails, public health departments, and social services. A doc on what county government actually does would be a civics doc unlike anything made before.",
+    nextAction:"Review NACo's existing media; check for any video investment history",
+    lastTouch:"", website:"naco.org", priority:false
+  },
+
+  // ── ARTS & CULTURE (continued) ────────────────────────────────────────────
+  {
+    id:96, name:"National Endowment for the Arts (NEA)", sector:"Arts & Culture",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$200M annual appropriation. Federal arts funding. Access, creative economy, community arts.",
+    contacts:"Communications Director",
+    notes:"The NEA funds arts in every congressional district — a fact most Americans don't know. A doc on how a single NEA grant transforms a rural community arts program could be a powerful defense of public arts funding at a moment of budget threat.",
+    nextAction:"Review NEA's existing communications and media strategy",
+    lastTouch:"", website:"arts.gov", priority:true
+  },
+  {
+    id:97, name:"PEN America", sector:"Arts & Culture",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$10M budget. Free expression, book bans, literary freedom, journalist safety.",
+    contacts:"Communications Director",
+    notes:"Book banning in public schools has exploded since 2021. PEN America documents every case. A doc following the communities, librarians, and families at the center of book ban fights would be a First Amendment film with enormous reach.",
+    nextAction:"Review PEN America's existing media; check for any prior film partnerships",
+    lastTouch:"", website:"pen.org", priority:true
+  },
+  {
+    id:98, name:"American Alliance of Museums (AAM)", sector:"Arts & Culture",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~35,000 member institutions. Museum access, decolonization, community engagement.",
+    contacts:"Communications Director",
+    notes:"Museums are reckoning with their colonial origins in ways that rarely make the news. AAM could commission a doc on repatriation negotiations — one object's journey home — that would reframe how the public thinks about cultural heritage.",
+    nextAction:"Review AAM's existing media and advocacy materials",
+    lastTouch:"", website:"aam-us.org", priority:false
+  },
+  {
+    id:99, name:"National Assembly of State Arts Agencies (NASAA)", sector:"Arts & Culture",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"No Story Yet",
+    mission:"56 state and jurisdictional arts agencies. Public arts funding policy, creative economy.",
+    contacts:"Executive Director",
+    notes:"NASAA is the connective tissue between federal arts policy and state implementation — a small but influential org that rarely has communication infrastructure for documentary-scale work. Potential for co-sponsorship with NEA.",
+    nextAction:"Research NASAA's annual budget via 990; assess communications capacity",
+    lastTouch:"", website:"nasaa-arts.org", priority:false
+  },
+  {
+    id:100, name:"Theatre Communications Group (TCG)", sector:"Arts & Culture",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~700 member theaters. Nonprofit theater advocacy, playwright development, audience access.",
+    contacts:"Communications Director",
+    notes:"Regional theater is in a post-pandemic crisis but also a creative renaissance. TCG could commission a doc on the survival of a beloved regional theater — a story about community, art, and institutional resilience.",
+    nextAction:"Review TCG's existing media; check for any prior video content",
+    lastTouch:"", website:"tcg.org", priority:false
+  },
+
+  // ── CRIMINAL JUSTICE ──────────────────────────────────────────────────────
+  {
+    id:101, name:"The Sentencing Project", sector:"Criminal Justice",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$5M budget. Criminal sentencing reform, mass incarceration, racial disparities in justice.",
+    contacts:"Communications Director",
+    notes:"The Sentencing Project has the data that makes the case for reform. A doc pairing their research with individual stories of people serving extreme sentences would be the definitive mass incarceration film.",
+    nextAction:"Review The Sentencing Project's existing media; assess appetite for doc collaboration",
+    lastTouch:"", website:"sentencingproject.org", priority:true
+  },
+  {
+    id:102, name:"Vera Institute of Justice", sector:"Criminal Justice",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    mission:"~$60M budget. Pretrial detention, immigration enforcement, reentry, police accountability.",
+    contacts:"Communications Director",
+    notes:"Vera combines rigorous research with on-the-ground reform programs. Their pretrial work — fighting money bail — is a perfect documentary subject: one person's time in jail awaiting trial can destroy a family and a life.",
+    nextAction:"Review Vera's existing media; look for any prior film or doc involvement",
+    lastTouch:"", website:"vera.org", priority:true
+  },
+  {
+    id:103, name:"Equal Justice Initiative (EJI)", sector:"Criminal Justice",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    mission:"Bryan Stevenson's org. ~$50M budget. Death row representation, racial terror lynching history, museum.",
+    contacts:"Communications Director",
+    notes:"EJI is perhaps the most powerful storytelling organization in the criminal justice space — the National Memorial for Peace and Justice, Just Mercy, Bryan Stevenson's public presence. A new commissioned doc on EJI's ongoing capital representation work could be extraordinary.",
+    nextAction:"Research EJI's existing media partnerships; identify where Think Out Loud adds value",
+    lastTouch:"", website:"eji.org", priority:true
+  },
+  {
+    id:104, name:"National Juvenile Justice Network (NJJN)", sector:"Criminal Justice",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$2M budget. Juvenile justice reform, youth incarceration, developmental approaches.",
+    contacts:"Communications Director",
+    notes:"Youth incarceration is one of the most shocking and least-documented aspects of the American justice system. NJJN could commission a doc on a young person's journey through the juvenile justice system and what reform looks like.",
+    nextAction:"Review NJJN's existing communications; assess appetite for documentary commission",
+    lastTouch:"", website:"njjn.org", priority:true
+  },
+  {
+    id:105, name:"Brennan Center for Justice", sector:"Criminal Justice",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$30M budget. Voting rights, criminal justice reform, democracy protection.",
+    contacts:"Communications Director",
+    notes:"Brennan Center is the premier democracy and justice policy org — covering voting rights, gerrymandering, dark money, and criminal justice all under one roof. A doc commissioned by Brennan on the state of American democracy would be timely and urgently needed.",
+    nextAction:"Review Brennan Center's media strategy; assess interest in documentary-scale work",
+    lastTouch:"", website:"brennancenter.org", priority:true
+  },
+
+  // ── LABOR & WORKFORCE ─────────────────────────────────────────────────────
+  {
+    id:106, name:"Economic Policy Institute (EPI)", sector:"Labor & Workforce",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~$10M budget. Wage policy, labor market research, union advocacy, racial economic equity.",
+    contacts:"Communications Director",
+    notes:"EPI produces the most cited wage data in American policy debates — but their work remains inside the Beltway. A doc translating their minimum wage and worker power research into stories of workers would reach a broad public audience.",
+    nextAction:"Review EPI's existing media strategy; assess appetite for doc commission",
+    lastTouch:"", website:"epi.org", priority:true
+  },
+  {
+    id:107, name:"National Employment Law Project (NELP)", sector:"Labor & Workforce",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$7M budget. Minimum wage, worker misclassification, unemployment insurance, gig economy.",
+    contacts:"Communications Director",
+    notes:"Gig economy misclassification — Uber drivers, delivery workers, domestic workers denied basic labor protections — is one of the defining labor stories of this era. NELP has been litigating and documenting it. A doc following misclassified workers in multiple industries would be powerful.",
+    nextAction:"Review NELP's existing campaigns; look for any prior video or media work",
+    lastTouch:"", website:"nelp.org", priority:true
+  },
+  {
+    id:108, name:"Coalition of Immigrant and Refugee Rights (CHIRLA)", sector:"Labor & Workforce",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~$15M budget. Immigrant worker rights, DACA, deportation defense, labor organizing in LA.",
+    contacts:"Communications Director",
+    notes:"CHIRLA is one of the most active immigrant rights organizations in the country, particularly in California. A doc on undocumented workers and the labor movement — who makes California agriculture, construction, and care work possible — would be extraordinary.",
+    nextAction:"Review CHIRLA's existing media; assess appetite for doc commission",
+    lastTouch:"", website:"chirla.org", priority:true
+  },
+
+  // ── HOUSING ───────────────────────────────────────────────────────────────
+  {
+    id:109, name:"National Housing Trust (NHT)", sector:"Housing",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"Affordable rental housing preservation. Low-income housing tax credits, community ownership.",
+    contacts:"Communications Director",
+    notes:"The affordable housing preservation story — saving existing affordable units from conversion — is less visible than new construction but equally urgent. NHT could commission a doc on a building and the residents fighting to stay in their homes.",
+    nextAction:"Review NHT's communications; assess budget signals via 990",
+    lastTouch:"", website:"nationalhousingtrust.org", priority:false
+  },
+  {
+    id:110, name:"NeighborWorks America", sector:"Housing",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$250M in grants. 240 nonprofit housing and community development orgs. Homeownership, rental, foreclosure.",
+    contacts:"Communications Director",
+    notes:"NeighborWorks has one of the most extensive community development networks in the country. A doc on homeownership as a wealth-building tool — following a first-time homebuyer through a NeighborWorks counseling program and into a home — could be a powerful economic mobility film.",
+    nextAction:"Review NeighborWorks' existing media; identify comms lead",
+    lastTouch:"", website:"neighborworks.org", priority:true
+  },
+
+  // ── FOOD & AGRICULTURE ────────────────────────────────────────────────────
+  {
+    id:111, name:"National Sustainable Agriculture Coalition (NSAC)", sector:"Food & Agriculture",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~100 grassroots farming, food, and conservation orgs. Farm bill advocacy, beginning farmer support.",
+    contacts:"Communications Director",
+    notes:"The family farm is disappearing — and the next Farm Bill fight will determine the future of sustainable agriculture. NSAC coordinates advocacy across the country. A doc on a Farm Bill cycle, from field to Congress, would be powerful.",
+    nextAction:"Review NSAC's existing media and advocacy materials",
+    lastTouch:"", website:"sustainableagriculture.net", priority:true
+  },
+  {
+    id:112, name:"WhyHunger", sector:"Food & Agriculture",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$5M budget. Food sovereignty, community food systems, hunger as a structural issue.",
+    contacts:"Communications Director",
+    notes:"WhyHunger reframes hunger not as charity but as justice — and their network of community-led food solutions is the most undercovered part of the food insecurity story. A doc on a community food hub could challenge the entire food bank model.",
+    nextAction:"Review WhyHunger's existing media; assess appetite for commissioned doc",
+    lastTouch:"", website:"whyhunger.org", priority:true
+  },
+
+  // ── IMMIGRATION ───────────────────────────────────────────────────────────
+  {
+    id:113, name:"International Rescue Committee (IRC)", sector:"Immigration",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$1B global budget; significant US operations. Refugee resettlement, crisis response, economic inclusion.",
+    contacts:"Chief Communications Officer; Media Director",
+    notes:"IRC operates on multiple continents at the intersection of conflict and displacement. A doc following a refugee family from camp to US resettlement — through the IRC network — would be a definitive refugee story for this era.",
+    nextAction:"Review IRC's existing media strategy and branded content; assess what Think Out Loud adds",
+    lastTouch:"", website:"rescue.org", priority:true
+  },
+  {
+    id:114, name:"Refugee and Immigrant Center for Education and Legal Services (RAICES)", sector:"Immigration",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$40M budget. Immigration legal services, family reunification, asylum, policy advocacy.",
+    contacts:"Communications Director",
+    notes:"RAICES became nationally known during family separation. Their ongoing legal work — defending asylum seekers, reuniting families — remains urgently important and deeply human. A doc inside RAICES would be a landmark immigration film.",
+    nextAction:"Review RAICES' existing media; look for any prior documentary involvement",
+    lastTouch:"", website:"raicestexas.org", priority:true
+  },
+
+  // ── PHILANTHROPY ──────────────────────────────────────────────────────────
+  {
+    id:115, name:"Council on Foundations", sector:"Philanthropy",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~1,500 foundation members. Philanthropic practice, equity in grantmaking, nonprofit sustainability.",
+    contacts:"Communications Director",
+    notes:"Philanthropy is rarely interrogated at documentary scale — but the question of who decides what gets funded, and whose communities are prioritized, is enormously important. Council on Foundations could commission a reflective doc on the practice of giving.",
+    nextAction:"Review Council on Foundations' existing media; assess appetite for self-reflective doc",
+    lastTouch:"", website:"cof.org", priority:false
+  },
+  {
+    id:116, name:"Philanthropy Roundtable", sector:"Philanthropy",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"No Story Yet",
+    mission:"Conservative-leaning philanthropy network. Donor freedom, education reform, civil society.",
+    contacts:"Communications Director",
+    notes:"A different political profile from most prospects — but documentary storytelling about philanthropy and civil society is genuinely nonpartisan. Worth a careful approach if there's appetite.",
+    nextAction:"Research Philanthropy Roundtable's communications strategy; assess alignment",
+    lastTouch:"", website:"philanthropyroundtable.org", priority:false
+  },
+
+  // ── VETERANS ──────────────────────────────────────────────────────────────
+  {
+    id:117, name:"Iraq and Afghanistan Veterans of America (IAVA)", sector:"Veterans",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~500,000 veteran members. PTSD, suicide prevention, women veterans, burn pit exposure.",
+    contacts:"Communications Director",
+    notes:"The burn pit exposure crisis — hundreds of thousands of veterans with toxic exposure illnesses — is one of the most important veteran stories rarely told in depth. IAVA led the PACT Act fight. A doc on veterans navigating the VA for burn pit treatment would be powerful.",
+    nextAction:"Review IAVA's existing media; check for any prior documentary involvement",
+    lastTouch:"", website:"iava.org", priority:true
+  },
+  {
+    id:118, name:"Fisher House Foundation", sector:"Veterans",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$60M budget. Free housing for military families during hospitalization; scholarship programs.",
+    contacts:"Communications Director",
+    notes:"Fisher House is the most emotionally accessible veteran-adjacent story: families staying together during the worst moments of a military member's life. A verité doc inside a Fisher House during a critical period would be deeply moving.",
+    nextAction:"Review Fisher House's existing media; identify comms lead",
+    lastTouch:"", website:"fisherhouse.org", priority:true
+  },
+
+  // ── DISABILITY ────────────────────────────────────────────────────────────
+  {
+    id:119, name:"National Council on Disability (NCD)", sector:"Disability",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"Federal agency. Disability policy, ADA enforcement, integration advocacy.",
+    contacts:"Communications Director",
+    notes:"NCD is the bridge between disability communities and federal policymaking. A doc on the unfinished business of the ADA — from employment gaps to inaccessible technology — would be timely on any ADA anniversary.",
+    nextAction:"Review NCD's communications; assess appetite for commissioned doc work",
+    lastTouch:"", website:"ncd.gov", priority:true
+  },
+  {
+    id:120, name:"ADAPT", sector:"Disability",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"Grassroots disability rights org. Community integration, attendant services, nursing home alternatives.",
+    contacts:"Communications Director",
+    notes:"ADAPT has a radical, direct-action tradition — chaining wheelchairs to buses, occupying the Senate floor. A doc on their decades of activism would be one of the great untold civil rights stories.",
+    nextAction:"Research ADAPT's structure and communications; approach as community partnership",
+    lastTouch:"", website:"adapt.org", priority:true
+  },
+
+  // ── LGBTQ+ ────────────────────────────────────────────────────────────────
+  {
+    id:121, name:"National Center for Transgender Equality (NCTE)", sector:"LGBTQ+",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$5M budget. Trans rights policy, ID documentation, anti-discrimination, healthcare access.",
+    contacts:"Communications Director",
+    notes:"Trans rights are at the center of the most active civil rights front in the country. NCTE could commission a doc following trans people navigating the current legal and social landscape — a powerful story of resilience amid backlash.",
+    nextAction:"Review NCTE's existing media; assess appetite for doc commission",
+    lastTouch:"", website:"transequality.org", priority:true
+  },
+  {
+    id:122, name:"GLSEN (Gay, Lesbian and Straight Education Network)", sector:"LGBTQ+",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~$15M budget. LGBTQ+ student safety, inclusive curricula, GSA support.",
+    contacts:"Communications Director",
+    notes:"GLSEN sits at the intersection of LGBTQ+ rights and education — two of the most contested spaces in American public life right now. A doc on a GSA student and their school navigating a hostile environment would be a powerful portrait of youth resilience.",
+    nextAction:"Review GLSEN's existing media; look for any prior film involvement",
+    lastTouch:"", website:"glsen.org", priority:true
+  },
+
+  // ── RACIAL EQUITY ─────────────────────────────────────────────────────────
+  {
+    id:123, name:"Advancement Project", sector:"Racial Equity",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Clear Pitch",
+    mission:"~$10M budget. Voting rights, school-to-prison pipeline, police accountability, racial justice.",
+    contacts:"Communications Director",
+    notes:"Advancement Project has led some of the most important racial justice legal battles of the past two decades. A doc on their school-to-prison pipeline work — following a school discipline case from classroom to courtroom — would be extraordinarily powerful.",
+    nextAction:"Review Advancement Project's existing media and communications strategy",
+    lastTouch:"", website:"advancementproject.org", priority:true
+  },
+  {
+    id:124, name:"Race Forward", sector:"Racial Equity",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"~$15M budget. Racial equity organizational change, systemic racism, narrative strategy.",
+    contacts:"Communications Director",
+    notes:"Race Forward works at the intersection of organizational change and racial equity narrative — a meta-level story about how institutions change. A doc on a major institution going through Race Forward's equity transformation process would be unique.",
+    nextAction:"Review Race Forward's existing media; assess appetite for doc commission",
+    lastTouch:"", website:"raceforward.org", priority:true
+  },
+  {
+    id:125, name:"Color of Change", sector:"Racial Equity",
+    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    mission:"~$30M budget. Digital racial justice, corporate accountability, criminal justice, media representation.",
+    contacts:"Chief Communications Officer",
+    notes:"Color of Change has reshaped how corporations and media talk about race — through campaigns, petitions, and accountability journalism. A doc on a major Color of Change campaign from inside the org would be a powerful portrait of digital organizing.",
+    nextAction:"Review Color of Change's existing media strategy",
+    lastTouch:"", website:"colorofchange.org", priority:true
+  },
+
+  // ── PUBLIC MEDIA ──────────────────────────────────────────────────────────
+  {
+    id:126, name:"Association of Public Television Stations (APTS)", sector:"Public Media",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"No Story Yet",
+    mission:"~120 public TV station members. Public media funding, local news, educational content.",
+    contacts:"Communications Director",
+    notes:"Public media is under existential funding threat. APTS could commission a doc on local public television stations in small communities — and what disappears when they close.",
+    nextAction:"Review APTS communications; assess appetite for self-referential doc on public media's value",
+    lastTouch:"", website:"apts.org", priority:false
+  },
+  {
+    id:127, name:"Public Media Alliance (PMA)", sector:"Public Media",
+    stage:"Identified", budget:"Mid ($50k–$150k)", storyReady:"Story Forming",
+    mission:"Global network of public media orgs. Media freedom, disinformation, public service journalism.",
+    contacts:"Communications Director",
+    notes:"PMA's global scope makes it a natural partner for a doc on public media as a democratic institution — told through case studies of public broadcasters under attack.",
+    nextAction:"Review PMA's existing media and partnerships",
+    lastTouch:"", website:"publicmediaalliance.org", priority:false
   },
 ];
 
