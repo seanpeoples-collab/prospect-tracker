@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 
 const STAGES = ["Identified","Researching","Warm","Outreach Sent","In Conversation","Proposal Sent","Partner"];
 const SECTORS = ["Health & Medicine","Science & Research","Social Services","Mental Health","Education","Environment","Advocacy & Policy","Arts & Culture","Community Development","Criminal Justice","Labor & Workforce","Housing","Food & Agriculture","Immigration","Philanthropy","Veterans","Disability","LGBTQ+","Racial Equity","Public Media","Pharma & Biotech","Family Foundation","Corporate Foundation","Global Health","Financial Services","Technology","Other"];
-const BUDGET_SIGNALS = ["Unknown","Low (<$50k)","Mid ($50k–$150k)","High ($150k+)","Institutional ($20M+ org budget)"];
+const BUDGET_SIGNALS = ["Unknown","Low (<$50k)","Mid ($50k–$150k)","High ($150k+)"];
 const STORY_READINESS = ["No Story Yet","Story Forming","Clear Pitch","Pitch Sent"];
 
 const STAGE_COLORS = {
@@ -370,7 +370,7 @@ const ALL_PROSPECTS = [
   // ── HIGH-BUDGET ORGANIZATIONS ($20M+ ANNUAL BUDGET) ─────────────────────
   {
     id:39, name:"American Psychological Association (APA)", sector:"Mental Health",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~134,000 psychologist members. Annual budget ~$134M. Mental health, trauma, equity advocacy.",
     contacts:"Chief Communications Officer; Public Affairs Director",
     notes:"APA has the budget and the urgency. The mental health crisis in America is the defining story of the decade. Pitch: a longitudinal doc on psychologists serving underserved communities — immigrant families, veterans, rural populations. They have published on access gaps but have no branded film presence.",
@@ -379,7 +379,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:40, name:"American Academy of Pediatrics (AAP)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"67,000 pediatricians. Annual budget ~$122M. Child health, mental health, gun violence, climate.",
     contacts:"VP of Communications; Media Relations",
     notes:"AAP has commissioning budget and a portfolio of urgent narratives: childhood gun violence, food insecurity, pediatric mental health crisis, immigrant child health. They've done major policy pushes but no branded documentary. High alignment with Think Out Loud's social impact positioning.",
@@ -388,7 +388,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:41, name:"American Physical Therapy Association (APTA)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~100,000 physical therapists and assistants. Annual budget ~$60M. Rehab access, chronic pain, opioid alternative.",
     contacts:"Director of Communications",
     notes:"PT is a powerful but under-documented profession. With opioid epidemic still unfolding, a doc positioning PT as the humane alternative to pain management has legs. APTA has the budget and the membership base to sponsor it.",
@@ -397,7 +397,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:42, name:"American Speech-Language-Hearing Association (ASHA)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~228,000 audiologists, SLPs, and scientists. Annual budget ~$60M. Communication access and equity.",
     contacts:"Chief Communications Officer",
     notes:"SLPs are invisible heroes — working with stroke survivors, children with autism, trauma patients. ASHA has enormous reach and consistent advocacy messaging. A doc following several SLPs across different settings (schools, hospitals, rehabilitation centers) could be powerful.",
@@ -406,7 +406,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:43, name:"Society for Human Resource Management (SHRM)", sector:"Other",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"325,000+ HR professionals globally. Annual budget ~$200M+. Workforce equity, DEI, future of work.",
     contacts:"Chief Communications Officer; Content Strategy",
     notes:"SHRM has massive budget and is actively reshaping the DEI and workforce narrative. A branded doc on the human cost of hiring discrimination, wage equity gaps, or the loneliness epidemic in workplaces could be transformative. They've invested heavily in media — but not documentary-scale storytelling.",
@@ -415,7 +415,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:44, name:"American Institute of Architects (AIA)", sector:"Other",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~95,000 architects. Annual budget ~$65M. Climate-resilient design, equity in the built environment.",
     contacts:"Communications Director",
     notes:"Architecture has major storytelling potential that's rarely tapped at the documentary level. Climate-resilient design, community-led projects in underserved cities, and the story of who gets to shape urban environments are all powerful pitches. AIA has budget and national media relationships.",
@@ -424,7 +424,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:45, name:"National Association of Social Workers (NASW)", sector:"Social Services",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~55,000 social workers. Annual budget ~$25M. Social justice, child welfare, mental health access.",
     contacts:"Director of Communications",
     notes:"Social workers are among the most underpaid and underrepresented professionals in America. NASW has a clear advocacy mandate and consistent budget. Pitch: a doc following several social workers across different settings — child welfare, hospital, immigration — over the course of a year. Strong equity frame.",
@@ -433,7 +433,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:46, name:"American Association of Critical Care Nurses (AACN)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~120,000 critical care nurses. Annual budget ~$36M (990 verified). ICU workforce crisis.",
     contacts:"Chief Communications Officer",
     notes:"AACN has verified $36M+ revenue (Form 990, 2023). ICU nurses lived through COVID as no one else did — moral injury, understaffing, impossible choices. A doc set inside a critical care unit could be one of the most powerful healthcare films ever made. AACN has both the budget and the story urgency.",
@@ -442,7 +442,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:47, name:"American Society of Clinical Oncology (ASCO)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"45,000+ oncologists globally. Annual budget ~$120M+. Cancer equity, clinical trial access, survivorship.",
     contacts:"Director of Communications; Media Relations",
     notes:"Cancer disparities — who gets access to clinical trials, cutting-edge drugs, specialized oncologists — is a major and underreported story. ASCO has enormous resources and a clear equity mandate. A doc on disparate cancer outcomes across race/class would align perfectly with their public advocacy.",
@@ -451,7 +451,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:48, name:"American Public Health Association (APHA)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~25,000 public health professionals. Annual budget ~$25M. Prevention, health equity, policy.",
     contacts:"Communications Director",
     notes:"APHA has been operating for 150+ years and is the largest public health professional org in the US. 150th anniversary was in 2022 — they may be building toward the next campaign. Pitch: a doc on the invisible infrastructure of public health: disease surveillance, community health workers, local health departments. The pandemic made this story urgent; APHA could sponsor the film that explains what we almost lost.",
@@ -462,7 +462,7 @@ const ALL_PROSPECTS = [
   // ── HEALTH & MEDICINE (continued) ─────────────────────────────────────────
   {
     id:49, name:"American Nurses Association (ANA)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~4M RNs represented. Annual budget ~$30M+. Nursing workforce crisis, workplace safety, equitable care.",
     contacts:"Chief Communications Officer; Media Relations Director",
     notes:"Nursing has never been more cinematically ready as a subject. Pandemic burnout, staffing ratios, racial disparities in nursing — ANA has the platform and urgency. Pitch: a doc following nurses across clinical settings over one year.",
@@ -471,7 +471,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:50, name:"American Association of Nurse Practitioners (AANP)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~360,000 NP members. Annual budget ~$25M. Access-to-care advocacy, scope of practice expansion.",
     contacts:"Communications Director",
     notes:"NPs are the fastest-growing segment of the healthcare workforce — and the story of expanding scope-of-practice fights is a compelling David vs. Goliath doc narrative. High moment given primary care deserts.",
@@ -480,7 +480,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:51, name:"American College of Emergency Physicians (ACEP)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~40,000 emergency physicians. Annual budget ~$35M+. ER overcrowding, boarding crisis, mental health in the ED.",
     contacts:"Director of Communications",
     notes:"The American ER is in collapse — psychiatric boarding, violence against staff, ambulance diversion. ACEP members live this daily. A doc inside an overwhelmed urban ED would be viscerally powerful and policy-relevant.",
@@ -507,7 +507,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:54, name:"American Diabetes Association (ADA)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~37M Americans with diabetes; major research and advocacy org. Annual budget ~$200M+. Health equity, insulin pricing.",
     contacts:"Chief Communications Officer",
     notes:"Insulin pricing and diabetes as a poverty disease are among the most powerful health equity narratives in America. ADA has budget, scale, and an urgent policy moment. A doc on insulin access could anchor a major campaign.",
@@ -516,7 +516,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:55, name:"American Heart Association (AHA)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"Largest voluntary health org in the US. Annual budget ~$900M+. Cardiovascular disease equity, research funding.",
     contacts:"Chief Communications Officer; SVP of Communications",
     notes:"AHA has enormous resources and a national media infrastructure — but their documentary-scale storytelling has been limited. Heart disease as a racial equity issue is a powerful pitch. Note: large org with established agency relationships; harder entry point.",
@@ -525,7 +525,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:56, name:"Alzheimer's Association", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$320M annual budget. Alzheimer's research, caregiving support, dementia advocacy.",
     contacts:"Chief Communications Officer",
     notes:"The caregiver story behind Alzheimer's is deeply human and cinematically powerful. With the first disease-modifying drugs now approved, the policy stakes are enormous. A doc following caregivers and patients through diagnosis and treatment would be timely.",
@@ -554,7 +554,7 @@ const ALL_PROSPECTS = [
   // ── SCIENCE & RESEARCH (continued) ────────────────────────────────────────
   {
     id:59, name:"American Chemical Society (ACS)", sector:"Science & Research",
-    stage:"Researching", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Researching", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~160,000 chemists and chemical engineers. Annual budget ~$500M+. Science communication, chemistry education.",
     contacts:"Director of Communications; Executive Director of Public Affairs",
     notes:"Strong existing relationship — leverage for next project. Chemistry underpins everything from pharmaceuticals to climate solutions but is deeply misunderstood publicly. Pitch an ACS-commissioned doc on chemistry's role in solving the defining problems of our era.",
@@ -581,7 +581,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:62, name:"Society for Neuroscience (SfN)", sector:"Science & Research",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~36,000 neuroscientists. Brain research, mental health neuroscience, neurological disease.",
     contacts:"Communications Director",
     notes:"The neuroscience of mental illness, addiction, and trauma has never been more publicly relevant. SfN members are doing the foundational research that informs treatment. A doc translating cutting-edge brain science could be transformative for public understanding.",
@@ -610,7 +610,7 @@ const ALL_PROSPECTS = [
   // ── EDUCATION (continued) ─────────────────────────────────────────────────
   {
     id:65, name:"National Education Association (NEA)", sector:"Education",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~3M educators. Largest labor union in the US. Teacher pay, public school funding, student equity.",
     contacts:"Chief Communications Officer",
     notes:"The teacher retention crisis is one of the most consequential and underreported stories in American public life. NEA has massive reach. A doc following first-year teachers in underresourced schools would be both humanizing and politically potent.",
@@ -619,7 +619,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:66, name:"American Federation of Teachers (AFT)", sector:"Education",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~1.7M educators, paraprofessionals, and school staff. Teacher workforce, public school equity.",
     contacts:"Communications Director",
     notes:"AFT and NEA are distinct orgs with different political positioning — worth separate approaches. AFT's urban focus makes for a compelling doc angle on the inner-city school as community anchor.",
@@ -666,7 +666,7 @@ const ALL_PROSPECTS = [
   // ── ENVIRONMENT (continued) ────────────────────────────────────────────────
   {
     id:71, name:"Natural Resources Defense Council (NRDC)", sector:"Environment",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$175M annual budget. Environmental law, climate policy, clean energy, ocean and wilderness protection.",
     contacts:"Chief Communications Officer; Media Director",
     notes:"NRDC has the largest media operation of any environmental org — but no branded documentary history. Their legal victories and policy campaigns offer rich narrative material. Approach as a complement to their existing communications, not a replacement.",
@@ -702,7 +702,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:75, name:"Wildlife Conservation Society (WCS)", sector:"Environment",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$300M annual budget. Global wildlife conservation, climate adaptation, species protection.",
     contacts:"Director of Communications",
     notes:"WCS has scientists operating in some of the most remote and visually spectacular places on Earth. Strong alignment with NatGeo experience. Pitch: a doc following WCS field scientists during a critical year in a threatened ecosystem.",
@@ -711,7 +711,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:76, name:"Rainforest Alliance", sector:"Environment",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$100M annual budget. Sustainable agriculture, forest conservation, climate-smart farming.",
     contacts:"Communications Director",
     notes:"The Rainforest Alliance certifies millions of acres — but few consumers know what that work actually looks like on the ground. A doc following a certification team through farms in the Amazon basin would be visually powerful.",
@@ -758,7 +758,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:81, name:"UnidosUS (formerly NCLR)", sector:"Advocacy & Policy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~300 affiliate orgs; largest Latino civil rights org. Immigration, education, health, economic equity.",
     contacts:"Chief Communications Officer",
     notes:"UnidosUS represents 60M+ Latinos but is rarely seen in documentary-scale storytelling. Immigration enforcement, DACA, health access — all are urgent. A doc on a year in the life of a UnidosUS affiliate serving a border community would be extraordinary.",
@@ -767,7 +767,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:82, name:"National Urban League (NUL)", sector:"Advocacy & Policy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~100 affiliates; 100+ years of economic empowerment for Black Americans. Workforce, housing, education.",
     contacts:"Chief Communications Officer",
     notes:"The National Urban League has the prestige and the network — and its State of Black America report is a defining annual document. A doc marking a major NUL milestone year or following an affiliate's work in a single city would be powerful.",
@@ -785,7 +785,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:84, name:"Center for American Progress (CAP)", sector:"Advocacy & Policy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$80M budget. Progressive policy research. Climate, health care, housing, immigration.",
     contacts:"Communications Director",
     notes:"CAP has enormous communications infrastructure but minimal documentary presence. Their data and reports create the architecture for powerful films — but they'd need a third-party producer to realize them. Approach as a co-production or sponsored content conversation.",
@@ -796,7 +796,7 @@ const ALL_PROSPECTS = [
   // ── SOCIAL SERVICES (continued) ───────────────────────────────────────────
   {
     id:85, name:"Feeding America", sector:"Social Services",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$4B revenue (food value + cash). 200+ food banks, 60,000+ food pantries. Food insecurity, SNAP advocacy.",
     contacts:"Chief Communications Officer",
     notes:"Food insecurity affects 44M Americans but rarely breaks through as a sustained documentary subject. Feeding America's network spans rural, suburban, and urban — a doc following one food bank through a year would reveal a hidden America.",
@@ -805,7 +805,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:86, name:"Catholic Charities USA", sector:"Social Services",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$4B in services. 165 local agencies. Immigration, refugee resettlement, poverty relief.",
     contacts:"Communications Director",
     notes:"Catholic Charities is one of the largest social service networks in the country — and its refugee resettlement work is deeply timely. A doc following a refugee family and the local Catholic Charities agency serving them could be extraordinarily moving.",
@@ -823,7 +823,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:88, name:"National Center for Missing & Exploited Children (NCMEC)", sector:"Social Services",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$50M budget. Child safety, exploitation prevention, victim reunification.",
     contacts:"Communications Director",
     notes:"NCMEC's work spans law enforcement collaboration, technology policy, and survivor support — each thread a compelling documentary subject. A doc on the forensic analysts and case coordinators working missing children cases would be powerful if carefully handled.",
@@ -832,7 +832,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:89, name:"Urban Institute", sector:"Social Services",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$100M budget. Nonpartisan policy research. Housing, wealth gaps, criminal justice, health.",
     contacts:"Communications Director",
     notes:"Urban Institute produces the most rigorous equity data in the country but has minimal video presence. A doc translating their research into human stories — following the data behind wealth gaps or housing instability — could be transformational.",
@@ -841,7 +841,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:90, name:"Covenant House", sector:"Social Services",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$140M budget. Youth homelessness, trafficking prevention, transitional housing.",
     contacts:"Chief Communications Officer",
     notes:"Youth homelessness and aging out of foster care are among the most powerful and underreported stories in America. Covenant House serves youth in 31 cities. A doc inside a Covenant House shelter over a year could be one of the most important social justice films of this decade.",
@@ -852,7 +852,7 @@ const ALL_PROSPECTS = [
   // ── COMMUNITY DEVELOPMENT (continued) ────────────────────────────────────
   {
     id:91, name:"Local Initiatives Support Corporation (LISC)", sector:"Community Development",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$300M+. Community development finance. Affordable housing, small business, rural revitalization.",
     contacts:"Communications Director",
     notes:"LISC finances the physical transformation of disinvested communities — a deeply visual story. A doc following a LISC-financed affordable housing development from groundbreaking to occupancy, through the eyes of residents, would be powerful.",
@@ -861,7 +861,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:92, name:"Enterprise Community Partners", sector:"Community Development",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$300M+ annual investments. Affordable housing finance, economic mobility, climate resilience.",
     contacts:"Communications Director",
     notes:"Similar to LISC but with a stronger climate-resilience framing for housing. Their work on green affordable housing offers a compelling doc angle at the intersection of housing justice and climate adaptation.",
@@ -899,7 +899,7 @@ const ALL_PROSPECTS = [
   // ── ARTS & CULTURE (continued) ────────────────────────────────────────────
   {
     id:96, name:"National Endowment for the Arts (NEA)", sector:"Arts & Culture",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$200M annual appropriation. Federal arts funding. Access, creative economy, community arts.",
     contacts:"Communications Director",
     notes:"The NEA funds arts in every congressional district — a fact most Americans don't know. A doc on how a single NEA grant transforms a rural community arts program could be a powerful defense of public arts funding at a moment of budget threat.",
@@ -946,7 +946,7 @@ const ALL_PROSPECTS = [
   // ── CRIMINAL JUSTICE ──────────────────────────────────────────────────────
   {
     id:102, name:"Vera Institute of Justice", sector:"Criminal Justice",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$60M budget. Pretrial detention, immigration enforcement, reentry, police accountability.",
     contacts:"Communications Director",
     notes:"Vera combines rigorous research with on-the-ground reform programs. Their pretrial work — fighting money bail — is a perfect documentary subject: one person's time in jail awaiting trial can destroy a family and a life.",
@@ -955,7 +955,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:103, name:"Equal Justice Initiative (EJI)", sector:"Criminal Justice",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"Bryan Stevenson's org. ~$50M budget. Death row representation, racial terror lynching history, museum.",
     contacts:"Communications Director",
     notes:"EJI is perhaps the most powerful storytelling organization in the criminal justice space — the National Memorial for Peace and Justice, Just Mercy, Bryan Stevenson's public presence. A new commissioned doc on EJI's ongoing capital representation work could be extraordinary.",
@@ -964,7 +964,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:105, name:"Brennan Center for Justice", sector:"Criminal Justice",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$30M budget. Voting rights, criminal justice reform, democracy protection.",
     contacts:"Communications Director",
     notes:"Brennan Center is the premier democracy and justice policy org — covering voting rights, gerrymandering, dark money, and criminal justice all under one roof. A doc commissioned by Brennan on the state of American democracy would be timely and urgently needed.",
@@ -1013,7 +1013,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:110, name:"NeighborWorks America", sector:"Housing",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$250M in grants. 240 nonprofit housing and community development orgs. Homeownership, rental, foreclosure.",
     contacts:"Communications Director",
     notes:"NeighborWorks has one of the most extensive community development networks in the country. A doc on homeownership as a wealth-building tool — following a first-time homebuyer through a NeighborWorks counseling program and into a home — could be a powerful economic mobility film.",
@@ -1034,7 +1034,7 @@ const ALL_PROSPECTS = [
   // ── IMMIGRATION ───────────────────────────────────────────────────────────
   {
     id:113, name:"International Rescue Committee (IRC)", sector:"Immigration",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$1B global budget; significant US operations. Refugee resettlement, crisis response, economic inclusion.",
     contacts:"Chief Communications Officer; Media Director",
     notes:"IRC operates on multiple continents at the intersection of conflict and displacement. A doc following a refugee family from camp to US resettlement — through the IRC network — would be a definitive refugee story for this era.",
@@ -1083,7 +1083,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:118, name:"Fisher House Foundation", sector:"Veterans",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$60M budget. Free housing for military families during hospitalization; scholarship programs.",
     contacts:"Communications Director",
     notes:"Fisher House is the most emotionally accessible veteran-adjacent story: families staying together during the worst moments of a military member's life. A verité doc inside a Fisher House during a critical period would be deeply moving.",
@@ -1143,7 +1143,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:125, name:"Color of Change", sector:"Racial Equity",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$30M budget. Digital racial justice, corporate accountability, criminal justice, media representation.",
     contacts:"Chief Communications Officer",
     notes:"Color of Change has reshaped how corporations and media talk about race — through campaigns, petitions, and accountability journalism. A doc on a major Color of Change campaign from inside the org would be a powerful portrait of digital organizing.",
@@ -1174,7 +1174,7 @@ const ALL_PROSPECTS = [
   // ── FAMILY FOUNDATIONS ────────────────────────────────────────────────────
   {
     id:128, name:"Ford Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$16B in assets; ~$600M in annual grants. Focuses on reducing inequality across economic, racial, and social dimensions. Funds art, journalism, and documentary work directly through its arts and culture programs.",
     contacts:"Chief Communications Officer; Director of Media & Journalism",
     notes:"Ford has a long history of funding documentary film and media storytelling, making them a natural co-production partner rather than just a funder. Their 'Build Power' narrative around economic justice is a ready-made documentary arc. They frequently commission multimedia content to accompany major grant initiatives.",
@@ -1183,7 +1183,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:129, name:"MacArthur Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$7B in assets; ~$300M in annual grants. Known for 'genius grants' (Fellows Program) and major initiatives in criminal justice reform, climate, journalism, and nuclear risk. Explicitly funds documentary and narrative journalism.",
     contacts:"Director of Communications; Program Officer, Journalism & Media",
     notes:"MacArthur's 100andChange grant competition and journalism initiative are both documentary-ready narratives. They have funded documentary projects through their journalism and arts portfolios for decades. Their criminal justice reform initiative ('Safe and Just') has compelling human stories embedded in systemic change.",
@@ -1192,7 +1192,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:130, name:"Hewlett Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$12B in assets; ~$450M in annual grants. Funds education, environment, performing arts, global development, and democracy. Strong interest in communications and narrative strategy to advance policy goals.",
     contacts:"Chief Communications Officer; Director, Performing Arts Program",
     notes:"Hewlett's performing arts and education programs provide natural documentary subject matter, particularly around arts access in underserved communities. Their democracy program is funding work on civic participation that could become a powerful political documentary. They have commissioned multimedia storytelling projects to amplify grantee work.",
@@ -1201,7 +1201,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:131, name:"Packard Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$9B in assets; ~$350M in annual grants. Focuses on conservation and science, population and reproductive health, and community development in Northern California. Strong tradition of funding media and storytelling to advance conservation narratives.",
     contacts:"Director of Communications; Program Officer, Conservation Science",
     notes:"Packard's conservation science program funds some of the most visually compelling environmental work in the world, including ocean conservation and climate science — ideal documentary territory. They have co-funded nature documentary content before. Their reproductive health portfolio opens an underexplored documentary angle.",
@@ -1210,7 +1210,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:132, name:"Bloomberg Philanthropies", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$1B+ in annual giving across public health, environment, arts, education, and government innovation. Known for high-production communications and media campaigns across public health and climate initiatives. Strong brand identity and communications infrastructure.",
     contacts:"Chief Communications Officer; Director, Arts Program",
     notes:"Bloomberg Philanthropies functions almost like a media-savvy political operation — it commissions high-quality content as part of its advocacy strategy. Their 'American Cities Climate Challenge' and tobacco control work have clear documentary arcs. They have already partnered with media organizations on documentary-style content.",
@@ -1219,7 +1219,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:133, name:"Walton Family Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$2B+ in annual giving. Focuses on K-12 education reform, environmental conservation (particularly oceans and rivers), and economic development in Arkansas and the Mississippi Delta.",
     contacts:"Chief Communications Officer; Program Director, Environment",
     notes:"Walton's ocean conservation work — including support for marine protected areas — is visually rich documentary territory with global stakes. Their K-12 education work is a compelling 'two sides of a debate' documentary format. Their Delta Stewardship program covers rural Southern community development — a visually powerful and underserved landscape.",
@@ -1228,7 +1228,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:134, name:"Schmidt Futures", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"Eric and Wendy Schmidt's philanthropic initiative with ~$100M+ in annual giving. Focuses on science, technology, and society. Supports AI ethics, climate solutions, and ocean science through Schmidt Ocean Institute, which operates its own research vessels.",
     contacts:"Chief Communications Officer; Director of Strategic Initiatives",
     notes:"Schmidt Ocean Institute produces extraordinary visual content from deep-sea expeditions — a natural documentary partner. Schmidt Futures' AI and emerging technology work is at the center of one of the defining public debates of our era. Their Rhodes Scholars and Technologists for the Global Good programs feature compelling individual characters.",
@@ -1237,7 +1237,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:135, name:"Lumina Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$1.3B in assets; ~$80M in annual grants exclusively focused on expanding access to higher education and workforce credentials. Funds research, policy, and communications work to increase postsecondary attainment rates for adults and underrepresented students.",
     contacts:"Chief Communications Officer; Director of Strategic Communications",
     notes:"Lumina has a sophisticated communications strategy and explicitly funds media and storytelling to advance its education equity mission. Their 'adult learner' narrative — millions of Americans with some college but no degree — is a ready-made documentary arc with abundant individual stories. They have partnered with public radio and journalism outlets before.",
@@ -1246,7 +1246,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:136, name:"Carnegie Corporation of New York", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$3.5B in assets; ~$150M in annual grants. Focuses on education, democracy, international peace, and higher education. Has a long history of funding public media, journalism, and documentary film as tools for democratic civic engagement.",
     contacts:"Director of Communications; Program Officer, Democracy",
     notes:"Carnegie has directly funded PBS documentaries and public media for decades — a proven relationship pathway. Their democracy and civic education program is urgently relevant. Their education work, particularly around early childhood and K-12 reform, includes systemic change stories that work well in documentary format.",
@@ -1255,7 +1255,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:137, name:"Open Society Foundations", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"George Soros's global philanthropy with ~$1B+ in annual giving focused on democracy, human rights, justice, and open societies worldwide. Funds media, documentary film, and investigative journalism directly through its arts and journalism programs. Operates in 100+ countries.",
     contacts:"Director of Communications; Program Director, Arts & Culture",
     notes:"Open Society has one of the most active documentary film funding programs of any foundation, historically supporting human rights documentaries around the world. Their criminal justice reform work in the US — bail reform, prosecution reform, voting rights — is a proven documentary genre with urgent relevance.",
@@ -1264,7 +1264,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:138, name:"Annie E. Casey Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$3B in assets; ~$170M in annual grants focused on improving outcomes for disadvantaged children and families in America. Operates data, advocacy, and direct community investment programs.",
     contacts:"Chief Communications Officer; Director of Advocacy & Policy",
     notes:"Casey's child welfare reform work — particularly around reducing foster care placements and juvenile incarceration — is deeply human storytelling territory. Their 'KIDS COUNT' annual data report is a recognized national resource that could anchor an annual documentary series. Their racial equity and family economic security programs tie systemic and personal narratives together.",
@@ -1273,7 +1273,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:139, name:"Robert Wood Johnson Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$12B in assets; ~$600M in annual grants — largest US foundation dedicated to health. Focuses on health equity, public health infrastructure, childhood obesity, and social determinants of health. Has a robust communications and media program.",
     contacts:"Chief Communications Officer; Director of Media & Communications",
     notes:"RWJF has a well-established history of funding health-focused documentary film and public media — they are a proven production partner. Their 'Culture of Health' initiative is explicitly about changing narratives around health equity, making documentary storytelling a strategic fit. They fund health policy debates that are ripe for documentary treatment.",
@@ -1282,7 +1282,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:140, name:"Doris Duke Charitable Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$1.8B in assets; ~$100M in annual grants. Focuses on performing arts, environmental conservation, child abuse prevention, and building careers of emerging artists. Long history of supporting jazz, dance, and theater.",
     contacts:"Program Officer, Performing Arts; Director of Communications",
     notes:"Doris Duke's performing arts program — focused on jazz, contemporary dance, and theater — offers visually rich documentary material about artistic excellence and cultural heritage. Their climate and conservation work has strong documentary potential. Their artist career development programs feature compelling individual journeys.",
@@ -1291,7 +1291,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:141, name:"Skoll Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$1.3B in assets; ~$60M in annual grants focused on social entrepreneurship. Funds 'social entrepreneurs' scaling innovative solutions. Has a direct media and film program and a historic relationship with documentary film through the Sundance Documentary Film Fund.",
     contacts:"Director of Storytelling & Media; Chief Communications Officer",
     notes:"Skoll has one of the most sophisticated relationships with documentary film of any foundation — they explicitly use film as a tool for advancing social entrepreneurship narratives and have funded multiple award-winning documentaries. Their Skoll Award for Social Entrepreneurship recipients read as a documentary subject list.",
@@ -1300,7 +1300,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:142, name:"Arnold Ventures", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$300M+ in annual giving. Focuses on criminal justice reform, health care, public pensions, and education policy. Known for evidence-based, policy-reform-focused grantmaking with a strong communications strategy. Funds investigative journalism and research.",
     contacts:"Chief Communications Officer; Program Director, Criminal Justice",
     notes:"Arnold Ventures' criminal justice reform portfolio — including bail reform, prosecution reform, and policing — is documentary-ready. Their work on drug pricing and pharmaceutical transparency is a high-stakes investigative documentary subject. They fund journalism partners explicitly as part of their communications strategy, signaling openness to media co-production.",
@@ -1309,7 +1309,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:143, name:"Chan Zuckerberg Initiative", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"Mark Zuckerberg and Priscilla Chan's philanthropic LLC with billions committed over their lifetimes. Focuses on education, science (basic biomedical research), and criminal justice/immigration reform. Structured as an LLC giving it flexibility to fund advocacy and media.",
     contacts:"Chief Communications Officer; Director, Education Initiative",
     notes:"CZI's education initiative — focused on personalized learning and education technology — is an underexplored documentary subject with strong access potential. Their science initiative (funding basic biomedical research) offers a compelling look at how philanthropy is reshaping scientific discovery. Their criminal justice and immigration work provides human story angles.",
@@ -1318,7 +1318,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:144, name:"Bezos Earth Fund", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"Jeff Bezos's $10 billion commitment to fight climate change and protect biodiversity. Focuses on nature-based solutions, clean energy transition, and food systems transformation. Actively building its communications and storytelling infrastructure as a new, high-profile philanthropy.",
     contacts:"Chief Communications Officer; Director of Strategic Partnerships",
     notes:"The Bezos Earth Fund is actively building its communications infrastructure, making now an ideal time to pitch a documentary partnership. Their nature-based solutions and biodiversity work is visually extraordinary documentary material. The scale of their ambition — $10 billion — means budget for high-production documentary content.",
@@ -1327,7 +1327,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:145, name:"Wellcome Trust (US Programs)", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"London-based global health research charity with ~$35B in assets; ~$1.3B in annual grants. Increasingly funds US-based work in infectious disease, mental health, and climate/health intersections. Has an active public engagement and media program including documentary commissions.",
     contacts:"Director of Public Engagement; Head of Media & Communications",
     notes:"Wellcome has directly commissioned documentary films and media content about health research as part of its public engagement strategy. Their mental health initiative is a major new program actively seeking narrative communications partners. Their climate and health work — exploring how climate change impacts human health — is a relatively unexplored documentary genre.",
@@ -1336,7 +1336,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:146, name:"Pivotal Ventures (Melinda French Gates)", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"Melinda French Gates's investment and incubation company with hundreds of millions committed to expanding opportunity for women and families. Focuses on women's economic empowerment, childcare, and representation in media. Explicitly invests in media and entertainment projects that expand women's representation.",
     contacts:"Chief Communications Officer; Director of Strategic Investments",
     notes:"Pivotal explicitly invests in media and film that expands the representation and narrative of women — making it a direct documentary co-production prospect. Their childcare and economic mobility work has rich human story content. Melinda French Gates's public profile makes any associated documentary project highly promotable.",
@@ -1345,7 +1345,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:147, name:"W.K. Kellogg Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$9B in assets; ~$300M in annual grants focused on vulnerable children and families. Programs address racial equity, early childhood development, food systems, and community engagement. Strong equity-focused communications approach.",
     contacts:"Chief Communications Officer; Program Director, Racial Equity",
     notes:"Kellogg's racial equity program — including their 'Truth, Racial Healing, and Transformation' initiative — is explicitly narrative-driven and designed to change the stories we tell about race in America, making documentary film a natural strategy. Their early childhood and food systems work in rural and Native communities is underrepresented in documentary film.",
@@ -1354,7 +1354,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:148, name:"Rockefeller Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$6B in assets; ~$350M+ in annual spending. Focuses on food systems, health, energy access, and economic inclusion. Has a robust communications and media operation with a dedicated 'narrative change' function on staff.",
     contacts:"Director of Communications; Senior Director, Narrative Change",
     notes:"Rockefeller has explicitly funded documentary films and narrative media as part of its strategy to shift public thinking about food, energy, and health. Their 'Equity x Design' and food system initiatives are active documentary subjects. The presence of a dedicated narrative change function is a major signal of documentary appetite.",
@@ -1363,7 +1363,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:149, name:"Bill & Melinda Gates Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$70B in assets; ~$6B in annual grants — the largest private foundation in the world. Focuses on global health, global development, US education, and gender equality. Has a substantial communications and media program including past documentary partnerships.",
     contacts:"Director of Global Media & Advocacy; Chief Communications Officer",
     notes:"Gates has co-produced and funded documentary content as part of its advocacy strategy on issues from polio eradication to malaria to US education. Their global health work — with cinematic settings across Sub-Saharan Africa, South Asia, and Latin America — is proven documentary territory. Their media advocacy team specifically seeks documentary partners.",
@@ -1372,7 +1372,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:150, name:"Knight Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$2.5B in assets; ~$150M in annual grants. Focuses on journalism, arts, and community engagement — particularly in the 26 communities where the Knight brothers owned newspapers. Has the most sophisticated journalism funding program of any US foundation.",
     contacts:"Chief Communications Officer; Program Director, Journalism",
     notes:"Knight is the most important media and journalism philanthropy in the US — making them a natural co-production partner for documentary journalism projects. Their journalism program funds investigative and narrative journalism that frequently overlaps with documentary subject matter. Their arts program in Knight communities supports documentary film directly.",
@@ -1381,7 +1381,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:151, name:"McCormick Foundation", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$1.5B in assets; ~$75M in annual grants. Focuses on civic education, journalism, early childhood, and veterans. Connected to the Tribune Company legacy. One of the largest journalism philanthropies in the country.",
     contacts:"Director of Communications; Program Officer, Journalism; CEO",
     notes:"McCormick's journalism program is a natural documentary co-production partner, with deep relationships across the journalism ecosystem. Their civic education work, including the Cantigny War Museum and military history, provides distinctive documentary subject matter. Their veterans' program supports post-military transitions with compelling individual stories.",
@@ -1390,7 +1390,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:152, name:"Luminate (Omidyar)", sector:"Family Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$100M+ in annual giving. Focuses on civic empowerment, data and digital rights, fiscal transparency, and independent media. Spun off from Omidyar Network with a specific mandate to strengthen civic life and democratic accountability.",
     contacts:"Chief Communications Officer; Director of Strategic Communications; Program Director",
     notes:"Luminate's focus on independent media funding — supporting investigative journalism and civic technology globally — makes it a natural documentary partner. Their data and digital rights work, exploring how surveillance and algorithmic power affect citizens, is a high-stakes investigative documentary subject.",
@@ -1401,7 +1401,7 @@ const ALL_PROSPECTS = [
   // ── PHARMA & BIOTECH ──────────────────────────────────────────────────────
   {
     id:153, name:"Pfizer", sector:"Pharma & Biotech",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$58B in annual revenue. Extensive corporate affairs and patient advocacy programs including the Pfizer Foundation. Produces substantial communications content around patient journeys, breakthrough therapies, and public health campaigns.",
     contacts:"Chief Communications Officer; VP of Corporate Affairs; Director of Patient Advocacy",
     notes:"Pfizer's experience developing and distributing COVID-19 vaccines — one of the most consequential public health moments of the century — is unfinished documentary territory with both scientific and human story dimensions. Their patient advocacy programs across oncology, rare disease, and infectious disease regularly feature extraordinary patient journeys.",
@@ -1410,7 +1410,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:154, name:"Johnson & Johnson", sector:"Pharma & Biotech",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$85B in annual revenue. Major corporate social responsibility and public health communications programs including the J&J Foundation. Known for campaigns around nursing, global health equity, and mental health.",
     contacts:"Chief Communications Officer; VP of Global Corporate Affairs; Director, J&J Foundation",
     notes:"J&J's 'Campaign for Nursing's Future' — a decades-long investment in nursing workforce — is a documentary subject that hasn't been fully told at the feature level. Their global health work in HIV/AIDS and vaccine access in low-income countries is powerful visual storytelling territory. Their mental health initiative is a growing communications focus.",
@@ -1419,7 +1419,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:155, name:"Merck & Co.", sector:"Pharma & Biotech",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$60B in annual revenue. Major corporate responsibility program including Merck for Mothers ($500M initiative to end maternal mortality globally). Focuses on global health access and patient advocacy.",
     contacts:"Chief Communications Officer; Director, Merck for Mothers; VP of Global Public Policy",
     notes:"Merck for Mothers is a high-visibility, human-centered program perfectly suited to documentary storytelling. Their HIV treatment access work in sub-Saharan Africa has been a decades-long narrative of science, diplomacy, and human resilience. Their oncology pipeline features extraordinary patient stories.",
@@ -1428,7 +1428,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:156, name:"Bristol-Myers Squibb", sector:"Pharma & Biotech",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$47B in annual revenue. Known for immuno-oncology breakthroughs (Opdivo, Yervoy). BMS Foundation focused on cancer health equity and cardiovascular disease. Strong patient advocacy and communications programs.",
     contacts:"Chief Communications Officer; Director, BMS Foundation; VP of Patient Advocacy",
     notes:"BMS's immuno-oncology work — helping the immune system fight cancer — is a scientific revolution with extraordinary patient survivor stories. Their cancer health equity work, focusing on disparities in cancer outcomes across racial and economic lines, is urgent documentary territory. The BMS Foundation's cardiovascular health equity program is another underexplored subject.",
@@ -1437,7 +1437,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:157, name:"Gilead Sciences", sector:"Pharma & Biotech",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$27B in annual revenue. Known for transformative HIV and hepatitis C treatments. The Gilead Foundation invests in HIV, viral hepatitis, and lung disease communities. Deep relationship with LGBTQ+ communities through HIV advocacy.",
     contacts:"Chief Communications Officer; Director, Gilead Foundation; VP of Patient Advocacy",
     notes:"Gilead's role in transforming HIV from a death sentence to a manageable condition — and their development of PrEP (Truvada) — is one of the great scientific and advocacy stories of the last 40 years. Their hepatitis C cure and its access controversy is a powerful investigative documentary subject. Their ongoing HIV equity work in communities of color is urgent and underrepresented.",
@@ -1446,7 +1446,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:158, name:"Eli Lilly", sector:"Pharma & Biotech",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$45B in annual revenue. Known for insulin, diabetes care, and breakthrough Alzheimer's and obesity drugs (Mounjaro/Zepbound). Major patient advocacy and communications programs around diabetes, mental health (Lilly Cares), and oncology.",
     contacts:"Chief Communications Officer; VP of Corporate Affairs; Director, Lilly Foundation",
     notes:"Lilly's insulin pricing controversy — and their eventual decision to cap insulin costs — is a fully documentary-ready narrative arc about corporate responsibility, patient advocacy, and political pressure. Their Alzheimer's drug development is a high-stakes scientific story with deeply human family narratives. The obesity drug revolution (GLP-1s) represents a societal shift Lilly is at the center of.",
@@ -1455,7 +1455,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:159, name:"Moderna", sector:"Pharma & Biotech",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$18B in revenue. Built on mRNA technology that produced a COVID-19 vaccine in record time. Has a corporate responsibility program focused on equitable vaccine access. Currently developing mRNA vaccines for cancer, influenza, and HIV.",
     contacts:"Chief Communications Officer; VP of Corporate Affairs; Head of Global Access",
     notes:"Moderna's origin story — a startup that used mRNA technology to develop a COVID-19 vaccine in record time — is a compelling documentary narrative that hasn't been definitively told. Their pipeline of mRNA cancer vaccines (personalized cancer vaccines) is one of the most exciting medical frontiers and a powerful documentary subject.",
@@ -1464,7 +1464,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:160, name:"Biogen", sector:"Pharma & Biotech",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$10B in annual revenue focused on neurological diseases including Alzheimer's, MS, ALS, and spinal muscular atrophy. Has patient advocacy programs in neurology and the Biogen Foundation.",
     contacts:"Chief Communications Officer; Director, Patient Advocacy; VP of Corporate Affairs",
     notes:"Biogen's Alzheimer's drug controversy — including the FDA's accelerated approval of Aduhelm and subsequent scrutiny — is one of the most dramatic regulatory stories in pharmaceutical history. Their SMA treatment work involves infant patient families with deeply emotional journeys. Their MS patient community is one of the most organized and vocal in pharma.",
@@ -1473,7 +1473,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:161, name:"Genentech / Roche", sector:"Pharma & Biotech",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"South San Francisco-based biotech (subsidiary of Roche, ~$60B global revenue) that pioneered modern biotechnology and cancer immunotherapy. Known for Herceptin (breast cancer), Avastin (cancer), and many other biologics. Has patient advocacy, science education, and health equity programs.",
     contacts:"Chief Communications Officer; Director, Genentech Foundation; VP of Patient Advocacy",
     notes:"Genentech's founding story — a startup that created the biotech industry by synthesizing human insulin in the 1970s — is corporate history that hasn't been definitively documented on film. Their cancer treatment breakthroughs, particularly in HER2+ breast cancer (Herceptin), involve patient communities with living memory of how the drug changed outcomes.",
@@ -1482,7 +1482,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:162, name:"Regeneron", sector:"Pharma & Biotech",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$14B in annual revenue. Known for Dupixent (atopic dermatitis/asthma), Eylea (macular degeneration), and COVID antibody treatments. Has the Regeneron Science Talent Search — the nation's oldest and most prestigious science competition for high school students.",
     contacts:"Chief Communications Officer; VP of Corporate Affairs; Director, Science Education",
     notes:"Regeneron's Science Talent Search is a proven documentary subject with strong character-driven potential — following young scientists competing for national recognition. Their Dupixent patient stories, involving people who suffered from debilitating eczema or severe asthma, are compelling transformative narratives.",
@@ -1493,7 +1493,7 @@ const ALL_PROSPECTS = [
   // ── CORPORATE FOUNDATIONS ─────────────────────────────────────────────────
   {
     id:163, name:"Google.org", sector:"Corporate Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"Google's philanthropic arm with ~$200M+ in annual grants and significant in-kind contributions. Focuses on economic opportunity, racial equity, crisis response, and education. Supports nonprofits using technology to solve social problems.",
     contacts:"Director of Communications; Head of Google.org; VP of Community Engagement",
     notes:"Google.org's support for AI-powered nonprofits and technology-for-good organizations creates documentary subjects at the intersection of tech and social impact — an underexplored genre. Their racial equity fund has supported hundreds of organizations with compelling stories. Their crisis response work features organizations deploying technology in high-stakes situations.",
@@ -1502,7 +1502,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:164, name:"Microsoft Philanthropies", sector:"Corporate Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"Microsoft's philanthropic and corporate responsibility arm with hundreds of millions in annual giving. Focuses on digital equity, AI for accessibility, sustainability, and workforce development. Operates through direct grants and technology donations to nonprofits globally.",
     contacts:"Chief Communications Officer; Director, Microsoft Philanthropies; VP of Corporate Affairs",
     notes:"Microsoft's AI accessibility work — developing technology to help people with disabilities — is a documentary subject at the intersection of technology, disability rights, and human potential. Their digital equity initiative reaches millions in underserved communities with powerful individual stories. Their sustainability commitments and technology infrastructure are documentary-worthy.",
@@ -1511,7 +1511,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:165, name:"JPMorgan Chase Foundation", sector:"Corporate Foundation",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$300M+ in annual giving. Focuses on workforce development, small business growth, community development, financial health, and racial equity. 'Advancing Cities' program targets economic opportunity in mid-size US cities including Detroit, Chicago, and Washington, D.C.",
     contacts:"Chief Communications Officer; Director, JPMorgan Chase Foundation; Head of Policy Center",
     notes:"JPMorgan Chase's 'Advancing Cities' initiative — making major investments in economic opportunity in specific cities — is a city-by-city documentary series waiting to happen. Their small business development work features entrepreneurs overcoming structural barriers. Their workforce development programs connect low-income residents to career pathways.",
@@ -1522,7 +1522,7 @@ const ALL_PROSPECTS = [
   // ── GLOBAL HEALTH ─────────────────────────────────────────────────────────
   {
     id:166, name:"CDC Foundation", sector:"Global Health",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"Atlanta-based 501(c)(3) that builds partnerships for the CDC with ~$260M in annual revenue. Funds public health emergency response, workforce development, and health equity programs. Works across infectious disease, chronic disease prevention, and global health security.",
     contacts:"Chief Communications Officer; Director of Marketing & Communications",
     notes:"The CDC Foundation's work spans every major public health emergency — COVID-19, Ebola, mpox, opioids — making it a natural documentary partner for health crisis narratives. Their workforce development work trains the next generation of public health professionals. Their health equity programs in underserved communities provide human-centered documentary content.",
@@ -1531,7 +1531,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:167, name:"PATH", sector:"Global Health",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"Seattle-based global health nonprofit with ~$600M in annual revenue. Works to accelerate health equity by advancing health solutions — vaccines, diagnostics, drugs — for populations most in need. Works across Africa, Asia, and Latin America on malaria, HIV, maternal health, and nutrition.",
     contacts:"Director of Communications; Senior Director of Partnerships",
     notes:"PATH's work developing affordable health technologies for low-income countries is a story of how global health innovation operates outside the commercial market. Their work in sub-Saharan Africa and South Asia provides cinematic international settings. Their malaria vaccine work — collaboration on the first approved malaria vaccine — is a decades-long narrative of scientific persistence.",
@@ -1540,7 +1540,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:168, name:"CARE", sector:"Global Health",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"Atlanta-based international humanitarian organization with ~$700M in annual revenue. Works in 100+ countries on poverty, gender equality, emergency response, and food security. One of the largest humanitarian organizations in the world.",
     contacts:"Chief Communications Officer; Director of Media & Public Engagement",
     notes:"CARE's humanitarian response work — from Syrian refugee camps to East African food crises — has cinematic scope and urgent human stakes. Their gender equality programs, particularly economic empowerment for women in the developing world, feature remarkable individual transformation stories. They have a sophisticated communications infrastructure.",
@@ -1558,7 +1558,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:170, name:"Conservation International", sector:"Environment",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$200M+ in annual revenue. Works to protect nature and biodiversity in 30+ countries, with focus on tropical forests, oceans, and the climate-nature nexus. Has notable celebrity engagement (including Harrison Ford) and strong communications capacity.",
     contacts:"Chief Communications Officer; Director of Media; VP of Creative",
     notes:"Conservation International has worked with major media organizations and celebrities to produce conservation communications content. Their work in tropical forests (Amazon, Congo, Borneo) provides some of the most visually stunning documentary settings in the world. Their science teams work in remote and rarely filmed ecosystems.",
@@ -1569,7 +1569,7 @@ const ALL_PROSPECTS = [
   // ── LARGE ADVOCACY & ENVIRONMENT (continued) ───────────────────────────────
   {
     id:171, name:"American Medical Association", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$300M+ in annual revenue. Advocates for physicians and the physician-patient relationship, sets medical standards, and funds medical education. Has a major communications and advocacy program including media and public health campaigns.",
     contacts:"Chief Communications Officer; VP of Advocacy Communications; Director of Media Relations",
     notes:"The AMA's physician advocacy work — around burnout, scope of practice, telehealth, prior authorization — tells a story of a healthcare system under extreme stress that would resonate with broad audiences. Their health equity initiatives, including explicit commitment to ending systemic racism in medicine, are documentary-worthy institutional reckoning narratives.",
@@ -1578,7 +1578,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:172, name:"American Civil Liberties Union (ACLU)", sector:"Advocacy & Policy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$300M+ in annual revenue (including ACLU Foundation). Litigates landmark civil liberties cases, lobbies, and organizes on free speech, privacy, voting rights, immigration, and reproductive rights.",
     contacts:"Director of Communications; Chief Media Officer; VP of Advocacy Communications",
     notes:"The ACLU is involved in many of the most consequential constitutional cases of our era — reproductive rights post-Dobbs, voting rights, transgender rights — each of which offers a documentary narrative following the lawyers and plaintiffs behind landmark cases. They have a sophisticated media operation and have worked with documentary filmmakers.",
@@ -1587,7 +1587,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:173, name:"Sierra Club Foundation", sector:"Environment",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$100M+ in annual revenue. Funds environmental advocacy, litigation, grassroots organizing, and clean energy transition work. Has a major communications program including multimedia storytelling.",
     contacts:"Director of Communications; Chief Engagement Officer; Director of Media",
     notes:"Sierra Club's 'Beyond Coal' campaign — which has retired hundreds of coal plants — is a decade-long story of organizing, litigation, and community transformation. Their environmental justice work in frontline communities offers compelling individual and community stories. Their Beyond Dirty Fuels campaign has dramatic political and economic stakes.",
@@ -1596,7 +1596,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:174, name:"Environmental Defense Fund", sector:"Environment",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$300M+ in annual revenue. Uses economic and scientific tools to find practical solutions to environmental problems. Known for market-based approaches to climate, fisheries reform, and methane reduction.",
     contacts:"Chief Communications Officer; Director of Media; VP of Strategy",
     notes:"EDF's 'methane hunters' — scientists measuring methane emissions from oil and gas facilities using satellite technology — is a visually extraordinary documentary subject at the frontier of climate science. Their fisheries reform work, using market incentives to restore fish stocks, has transformed coastal fishing communities. Their work on carbon markets is a policy documentary subject.",
@@ -1605,7 +1605,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:175, name:"The Nature Conservancy", sector:"Environment",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$1B+ in annual revenue. Operations in 72 countries. Focuses on land and water conservation, climate solutions, and freshwater protection. Has extensive media and communications infrastructure.",
     contacts:"Chief Communications Officer; Director of Media & Brand; VP of External Affairs",
     notes:"TNC's land conservation work takes place in some of the most visually stunning settings on Earth, from the Amazon to the Appalachians. Their 'NatureVest' impact investing work brings a finance-meets-environment documentary angle. Their water fund programs in Latin America feature community-conservation partnerships.",
@@ -1614,7 +1614,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:176, name:"World Wildlife Fund (WWF-US)", sector:"Environment",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Clear Pitch",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Clear Pitch",
     mission:"~$380M in annual US revenue. Focuses on wildlife conservation, ocean protection, freshwater, food, and climate. Known globally for its brand and conservation storytelling.",
     contacts:"Chief Communications Officer; Director of Media; VP of Marketing",
     notes:"WWF has the most globally recognized conservation brand in the world and already operates as a sophisticated media organization. Their wildlife trafficking work — following rangers, smuggling networks, and endangered species — has thriller-level narrative potential. Their ocean plastics and fisheries work has urgent environmental stakes.",
@@ -1623,7 +1623,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:177, name:"Earthjustice", sector:"Environment",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$175M+ in annual revenue. The largest environmental law organization in the US, litigating environmental cases at no cost to clients. Works on clean air, clean water, climate, and public lands protection.",
     contacts:"Chief Communications Officer; Director of Media; VP of Litigation Communications",
     notes:"Earthjustice's legal battles to stop polluting facilities, protect wilderness, and enforce clean air and water laws are dramatic courtroom stories with real environmental stakes. Their attorneys often represent frontline communities — indigenous tribes, low-income neighborhoods. Their Alaskan wilderness and Western public lands cases involve extraordinary visual settings.",
@@ -1632,7 +1632,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:178, name:"Human Rights Watch", sector:"Advocacy & Policy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$100M+ in annual revenue. Investigates and reports on human rights abuses in 90+ countries. Known for detailed research and advocacy that influences policy, litigation, and public opinion.",
     contacts:"Director of Communications; Deputy Executive Director for External Relations; Global Media Director",
     notes:"Human Rights Watch's investigators work in the world's most dangerous and urgent human rights situations — from Ukraine to Yemen to Myanmar — creating extraordinary documentary opportunities. Their investigative methodology — gathering testimony, analyzing satellite imagery, building legal cases — is a compelling behind-the-scenes documentary subject.",
@@ -1641,7 +1641,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:179, name:"Kaiser Family Foundation (KFF)", sector:"Health & Medicine",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$60M+ in annual revenue. Produces trusted, nonpartisan health policy research and journalism. Operates KFF Health News, a major health journalism outlet consumed by policymakers, media, and the public.",
     contacts:"Chief Communications Officer; Editor, KFF Health News; VP of Communications",
     notes:"KFF Health News produces investigative health journalism that regularly uncovers systemic failures in healthcare delivery — from hospital billing to nursing home conditions — that translate directly into documentary narratives. Their Medicaid and insurance coverage research tells the story of the uninsured in America. A documentary co-produced with KFF Health News would have built-in distribution.",
@@ -1650,7 +1650,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:180, name:"AARP", sector:"Social Services",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$1.6B in annual revenue. The largest membership organization in the US with 38 million members. Advocacy organization for adults 50+ on healthcare, financial security, and social engagement. Has AARP Foundation focused on senior hunger, poverty, housing, and workforce re-entry.",
     contacts:"Chief Communications Officer; VP of Brand Strategy; Director, AARP Foundation",
     notes:"AARP's work on senior poverty and economic insecurity is an underrepresented documentary subject. Their 'Back to Work 50+' program, helping older adults re-enter the workforce, features inspiring career reinvention stories. Their litigation work protecting senior rights in housing and employment is dramatic legal storytelling.",
@@ -1659,7 +1659,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:181, name:"Teach For America", sector:"Education",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$300M+ in annual revenue. Recruits and trains teachers for under-resourced communities. Has placed 65,000+ corps members in high-need schools across the US since 1990. Has a major alumni network active in education policy, politics, and community leadership.",
     contacts:"Chief Communications Officer; VP of Strategic Communications; Director of Media",
     notes:"TFA's model — placing high-achieving recent graduates in the most challenging schools in America — is a controversial and compelling documentary subject, with passionate advocates and critics. Their corps members experience dramatic first-year teaching stories that are inherently cinematic. Their 30-year alumni impact in education and politics tells a long-form story about systemic change.",
@@ -1668,7 +1668,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:182, name:"UNCF (United Negro College Fund)", sector:"Education",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$150M+ in annual revenue. Provides scholarships and programmatic support for Historically Black Colleges and Universities (HBCUs). Supports 37 private HBCUs and thousands of students annually.",
     contacts:"Chief Communications Officer; Senior VP of Marketing & Communications; Director of Media",
     notes:"UNCF's HBCU support work — particularly the financing and preservation of schools that have educated Black Americans since Reconstruction — is a rich historical and contemporary documentary subject. Individual scholarship recipient stories feature extraordinary journeys of first-generation college students. The broader HBCU narrative is a cinematic subject with deep historical resonance.",
@@ -1677,7 +1677,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:183, name:"Habitat for Humanity International", sector:"Housing",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$500M+ in annual revenue. Builds and rehabilitates homes for low-income families in 70+ countries. Partners with faith communities, corporations, and volunteers to address the global housing crisis.",
     contacts:"Chief Communications Officer; VP of Marketing; Director of Media Relations",
     notes:"Habitat's model — requiring future homeowners to invest 'sweat equity' in their own home construction — produces compelling individual character stories of aspiration, hard work, and transformation. Their global work, particularly in post-disaster reconstruction, involves extraordinary visual settings and urgent timelines. The US affordable housing crisis gives their domestic work renewed urgency.",
@@ -1704,7 +1704,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:186, name:"Legal Services Corporation", sector:"Advocacy & Policy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"Federal corporation with ~$700M+ in annual congressional appropriation funding civil legal aid for low-income Americans through 132 independent grantee organizations. Provides legal assistance in housing, family, consumer, and benefits cases to millions.",
     contacts:"Vice President of Communications; Director of Media Relations; President",
     notes:"LSC funds the civil legal aid safety net for low-income Americans — a critically underfunded system that determines outcomes in eviction, domestic violence, custody, and benefits cases. A documentary following LSC-funded attorneys and their clients would expose the civil justice gap to broad audiences. Their survival amid political attempts to defund them is an institutional drama.",
@@ -1722,7 +1722,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:188, name:"National Council for Mental Wellbeing", sector:"Mental Health",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$50M+ in annual revenue representing 3,400+ mental health and substance use treatment organizations. Advocates for funding, policy, and workforce development in behavioral health. Hosts the largest mental health conference in the US.",
     contacts:"Director of Communications; CEO; VP of Policy",
     notes:"The National Council represents the organizations delivering mental health care at the community level — the clinics, treatment centers, and crisis lines that constitute the behavioral health safety net. Their work on mental health workforce shortages is a systemic crisis documentary subject. Their Zero Suicide initiative is a compelling institutional change story.",
@@ -1767,7 +1767,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:193, name:"American Bar Association", sector:"Advocacy & Policy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$180M+ in annual revenue. The professional association for lawyers. Advocates for justice, access to legal services, and the rule of law. Has programs in law school accreditation, pro bono legal work, and civil rights.",
     contacts:"Director of Communications; Chief Policy Officer; Director, ABA Foundation",
     notes:"The ABA's access to justice work — documenting the civil legal aid crisis where 80% of the civil legal needs of low-income Americans go unmet — is a powerful systemic documentary subject. Their rule of law programs internationally (training lawyers in developing democracies) provide international documentary settings. Their pro bono legal work features lawyers taking on landmark civil rights cases.",
@@ -1776,7 +1776,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:194, name:"United Way Worldwide", sector:"Social Services",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"No Story Yet",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"No Story Yet",
     mission:"~$3.6B in annual revenue across US and international affiliates. Focuses on education, financial stability, and health. The backbone infrastructure for community impact philanthropy in hundreds of US cities.",
     contacts:"Chief Communications Officer; Director of Brand & Marketing; VP of Partnerships",
     notes:"United Way's transformation from a workplace giving clearinghouse to a community impact organization is an underexplored institutional change narrative. Their local affiliate system — each operating independently in its community — produces a mosaic of American philanthropy from Detroit to rural Iowa. Their COVID-19 response coordination across communities was a massive untold story.",
@@ -1785,7 +1785,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:195, name:"Boys & Girls Clubs of America", sector:"Social Services",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"Story Forming",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"Story Forming",
     mission:"~$600M+ in annual revenue. Operates 4,700+ clubs nationally. Serves 4 million+ young people with afterschool programs, mentoring, and college prep. Has a major brand presence and communications infrastructure.",
     contacts:"Chief Communications Officer; VP of Brand Marketing; National Director of Partnerships",
     notes:"The Boys & Girls Club's work in under-resourced communities — serving children who have few other safe spaces after school — features extraordinary individual transformation stories. Their staff mentors are often community members who give character depth. The clubs' role as community anchors in neighborhoods facing poverty and violence is a powerful documentary subject.",
@@ -1794,7 +1794,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:196, name:"U.S. Conference of Mayors", sector:"Advocacy & Policy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"No Story Yet",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"No Story Yet",
     mission:"Organization of US mayors of cities with populations over 30,000. Advocates for city interests in federal policy on infrastructure, public safety, housing, and economic development. Convenes mayors across the country on shared urban challenges.",
     contacts:"Executive Director; Director of Communications; Policy Director",
     notes:"Following a cohort of mayors through their terms offers a political leadership documentary with national stakes — pandemic, unrest, inflation, migration. Their infrastructure and housing policy advocacy tells the story of cities fighting for federal resources. A documentary on three mayors navigating shared challenges with different approaches would be compelling.",
@@ -1803,7 +1803,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:197, name:"Brookings Institution", sector:"Advocacy & Policy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"No Story Yet",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"No Story Yet",
     mission:"~$130M+ in annual revenue. Produces policy research across economics, governance, foreign policy, and social policy. One of the most cited think tanks in the world, with a major media and communications operation.",
     contacts:"Vice President of Communications; Director of Media Relations; Editor, Brookings Press",
     notes:"Brookings' researchers are embedded in the most consequential policy debates of our era — from AI governance to climate policy to democratic resilience — providing expert access for documentary investigation. Their Metropolitan Policy Program researches American cities with documentary-worthy stories. Their foreign policy work includes researchers who have operated in conflict zones.",
@@ -1812,7 +1812,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:198, name:"RAND Corporation", sector:"Advocacy & Policy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"No Story Yet",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"No Story Yet",
     mission:"~$350M+ in annual revenue. Conducts research for government, military, and public sector clients across defense, health, education, justice, and social policy. Has extraordinary access to high-level government policy processes.",
     contacts:"Director of Communications; VP of External Affairs; Media Relations Director",
     notes:"RAND's access to Department of Defense, intelligence agencies, and senior government policymakers provides a rare behind-the-scenes documentary access opportunity. Their health policy research — on opioids, mental health, gun violence — is policy documentary territory. Their social science work has shaped American public policy for 75 years.",
@@ -1821,7 +1821,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:199, name:"SHRM (Society for Human Resource Management)", sector:"Labor & Workforce",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"No Story Yet",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"No Story Yet",
     mission:"~$400M+ in annual revenue; 330,000+ members globally. Sets HR standards and best practices. Works at the center of the most contested workplace issues of our era — remote work, DEI, AI and automation, mental health benefits, and pay equity.",
     contacts:"Chief Communications Officer; VP of Media Relations; Director of Research",
     notes:"A documentary following HR professionals navigating these tensions — DEI, automation, employee mental health simultaneously — would find a large and engaged audience. Their workforce equity research documents systemic issues in hiring, pay, and advancement. The 'modern workplace' is an underexplored documentary subject with broad audience appeal.",
@@ -1830,7 +1830,7 @@ const ALL_PROSPECTS = [
   },
   {
     id:200, name:"Wellspring Philanthropic Fund", sector:"Philanthropy",
-    stage:"Identified", budget:"Institutional ($20M+ org budget)", storyReady:"No Story Yet",
+    stage:"Identified", budget:"High ($150k+)", storyReady:"No Story Yet",
     mission:"~$100M+ in annual giving. Focuses on human rights, reproductive rights, LGBTQ+ rights, and democracy. One of the larger anonymous foundations in the US that primarily funds advocacy and litigation organizations.",
     contacts:"Program Officer, Human Rights; Executive Director; Director of Communications",
     notes:"Wellspring's focus on human rights, reproductive rights, and LGBTQ+ rights — all urgently relevant post-Dobbs — makes the organizations they fund natural documentary subjects. As a relatively anonymous foundation, a documentary partnership could be structured through grantee organizations. Their international human rights work crosses borders and cultures.",
