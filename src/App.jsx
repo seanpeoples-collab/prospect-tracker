@@ -1858,7 +1858,7 @@ export default function ProspectTracker() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [sortBy, setSortBy] = useState("name");
-  const [form, setForm] = useState({name:"",sector:SECTORS[0],stage:"Identified",budget:"Unknown",storyReady:"No Story Yet",mission:"",contacts:"",notes:"",lastTouch:"",nextAction:"",website:"",priority:false});
+  const [form, setForm] = useState({name:"",sector:SECTORS[0],stage:"Identified",budget:"Unknown",storyReady:"No Story Yet",mission:"",contacts:"",notes:"",lastTouch:"",nextAction:"",website:"",youtube:"",linkedinCompany:"",linkedinPeople:"",priority:false});
   const [syncStatus, setSyncStatus] = useState("idle"); // idle | syncing | success | error
   const [lastSynced, setLastSynced] = useState(() => { try { return localStorage.getItem("tol_last_synced")||null; } catch { return null; }});
 
@@ -1910,6 +1910,9 @@ export default function ProspectTracker() {
           "Next Action": p.nextAction,
           "Last Touch": p.lastTouch,
           "Website": p.website,
+          "YouTube": p.youtube || "",
+          "LinkedIn Company": p.linkedinCompany || "",
+          "LinkedIn People": p.linkedinPeople || "",
         };
         if (recordMap[String(p.id)]) {
           toUpdate.push({ id: recordMap[String(p.id)], fields });
@@ -1974,7 +1977,7 @@ export default function ProspectTracker() {
   }, [prospects, filterStage, filterSector, filterStory, searchQuery, sortBy]);
 
   const selected = prospects.find(p=>p.id===selectedId);
-  const openNew = () => { setEditingId(null); setForm({name:"",sector:SECTORS[0],stage:"Identified",budget:"Unknown",storyReady:"No Story Yet",mission:"",contacts:"",notes:"",lastTouch:"",nextAction:"",website:"",priority:false}); setShowForm(true); };
+  const openNew = () => { setEditingId(null); setForm({name:"",sector:SECTORS[0],stage:"Identified",budget:"Unknown",storyReady:"No Story Yet",mission:"",contacts:"",notes:"",lastTouch:"",nextAction:"",website:"",youtube:"",linkedinCompany:"",linkedinPeople:"",priority:false}); setShowForm(true); };
   const openEdit = (p) => { setEditingId(p.id); setForm({...p}); setShowForm(true); };
   const saveForm = () => {
     if (!form.name.trim()) return;
@@ -2159,14 +2162,40 @@ export default function ProspectTracker() {
                   </div>
                 </div>
 
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:16}}>
-                  {[["Budget Signal",selected.budget],["Website",selected.website||"—"],["Last Touch",formatDate(selected.lastTouch)],["Contact Staleness",selected.lastTouch?`${daysSince(selected.lastTouch)} days ago`:"Never contacted"]].map(([label,val])=>(
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:16}}>
+                  {[["Budget Signal",selected.budget],["Last Touch",formatDate(selected.lastTouch)],["Contact Staleness",selected.lastTouch?`${daysSince(selected.lastTouch)} days ago`:"Never contacted"]].map(([label,val])=>(
                     <div key={label} style={{background:"#f4f5f7",border:"1px solid #e8eaed",borderRadius:2,padding:10}}>
                       <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"#aaaabd",letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:3}}>{label}</div>
                       <div style={{fontSize:12,color:"#3d3d4e"}}>{val}</div>
                     </div>
                   ))}
                 </div>
+
+                {(selected.website||selected.youtube||selected.linkedinCompany||(selected.linkedinPeople&&selected.linkedinPeople.trim()))&&(
+                  <div style={{marginBottom:16}}>
+                    <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"#aaaabd",letterSpacing:"0.12em",textTransform:"uppercase",marginBottom:8}}>Links</div>
+                    <div style={{display:"flex",flexDirection:"column",gap:5}}>
+                      {[["Website",selected.website],["YouTube",selected.youtube],["LinkedIn Co.",selected.linkedinCompany]].map(([label,url])=>url&&(
+                        <div key={label} style={{display:"flex",alignItems:"center",gap:10}}>
+                          <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#888899",width:90,flexShrink:0}}>{label}</span>
+                          <a href={url.startsWith("http")?url:`https://${url}`} target="_blank" rel="noreferrer" style={{fontSize:12,color:"#2563eb",textDecoration:"none",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}} title={url}>{url.startsWith("http")?url:`https://${url}`}</a>
+                        </div>
+                      ))}
+                      {selected.linkedinPeople&&selected.linkedinPeople.trim()&&selected.linkedinPeople.split("\n").map((line,i)=>{
+                        const t=line.trim(); if(!t) return null;
+                        const httpIdx=t.indexOf("http");
+                        const label=httpIdx>0?t.slice(0,httpIdx).replace(/:$/,"").trim():`Person ${i+1}`;
+                        const url=httpIdx>=0?t.slice(httpIdx).trim():null;
+                        return (
+                          <div key={i} style={{display:"flex",alignItems:"center",gap:10}}>
+                            <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#888899",width:90,flexShrink:0,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}} title={label}>{label}</span>
+                            {url?<a href={url} target="_blank" rel="noreferrer" style={{fontSize:12,color:"#2563eb",textDecoration:"none"}}>LinkedIn ↗</a>:<span style={{fontSize:12,color:"#3d3d4e"}}>{t}</span>}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
 
                 {[["Mission & Story Alignment",selected.mission],["Key Contacts",selected.contacts],["Research Notes",selected.notes],["Next Action",selected.nextAction]].map(([label,val])=>val&&(
                   <div key={label} style={{marginBottom:14}}>
@@ -2260,10 +2289,10 @@ export default function ProspectTracker() {
           <div style={{background:"#ffffff",border:"1px solid #e2e4e9",borderRadius:3,padding:28,width:"100%",maxWidth:600,maxHeight:"90vh",overflowY:"auto"}}>
             <h3 style={{fontFamily:"'Inter',sans-serif",fontSize:17,fontWeight:600,margin:"0 0 20px",color:"#1a1a2e"}}>{editingId?"Edit Prospect":"New Prospect"}</h3>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:12}}>
-              {[["Organization Name","name","text",true],["Website","website","text",false]].map(([label,key,type,req])=>(
+              {[["Organization Name","name","text",true],["Website","website","text",false],["YouTube Channel","youtube","text",false],["LinkedIn Company","linkedinCompany","text",false]].map(([label,key,type,req])=>(
                 <div key={key}>
                   <label style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"#888899",letterSpacing:"0.12em",textTransform:"uppercase",display:"block",marginBottom:4}}>{label}{req?" *":""}</label>
-                  <input className="input-s" type={type} value={form[key]} onChange={e=>setForm(f=>({...f,[key]:e.target.value}))}/>
+                  <input className="input-s" type={type} value={form[key]||""} onChange={e=>setForm(f=>({...f,[key]:e.target.value}))} placeholder={key==="youtube"?"https://youtube.com/@channel":key==="linkedinCompany"?"https://linkedin.com/company/name":""}/>
                 </div>
               ))}
               {[["Sector","sector",SECTORS],["Stage","stage",STAGES],["Budget Signal","budget",BUDGET_SIGNALS],["Story Readiness","storyReady",STORY_READINESS]].map(([label,key,opts])=>(
@@ -2279,7 +2308,7 @@ export default function ProspectTracker() {
                 <input type="date" className="input-s" value={form.lastTouch} onChange={e=>setForm(f=>({...f,lastTouch:e.target.value}))}/>
               </div>
             </div>
-            {[["Mission & Alignment","mission","Why would they commission a doc?"],["Key Contacts","contacts","Names, titles, emails"],["Research Notes","notes","Prior video work, budget signals, connections"],["Next Action","nextAction","Concrete next step"]].map(([label,key,placeholder])=>(
+            {[["Mission & Alignment","mission","Why would they commission a doc?"],["Key Contacts","contacts","Names, titles, emails"],["LinkedIn People (one per line: Name/Title: URL)","linkedinPeople","CMO: https://linkedin.com/in/jane\nComms Dir: https://linkedin.com/in/john"],["Research Notes","notes","Prior video work, budget signals, connections"],["Next Action","nextAction","Concrete next step"]].map(([label,key,placeholder])=>(
               <div key={key} style={{marginBottom:12}}>
                 <label style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"#888899",letterSpacing:"0.12em",textTransform:"uppercase",display:"block",marginBottom:4}}>{label}</label>
                 <textarea className="input-s" value={form[key]} onChange={e=>setForm(f=>({...f,[key]:e.target.value}))} placeholder={placeholder}/>
