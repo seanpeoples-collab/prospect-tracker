@@ -1863,6 +1863,15 @@ export default function ProspectTracker() {
   const [syncStatus, setSyncStatus] = useState("idle"); // idle | syncing | success | error
   const [lastSynced, setLastSynced] = useState(() => { try { return localStorage.getItem("tol_last_synced")||null; } catch { return null; }});
 
+  // Password gate
+  const [unlocked, setUnlocked] = useState(() => { try { return localStorage.getItem("tol_unlocked")==="true"; } catch { return false; } });
+  const [pwInput, setPwInput] = useState("");
+  const [pwError, setPwError] = useState(false);
+
+  // Airtable load state
+  const [loadingFromAirtable, setLoadingFromAirtable] = useState(true);
+  const [airtableLoadError, setAirtableLoadError] = useState(null); // null | "network" | "empty"
+
   const AIRTABLE_BASE = "appW7briSaV0w3qnH";
   const AIRTABLE_TABLE = "Table 1";
   const AIRTABLE_TOKEN = "patJA17IX5TdSq9hL.7d63a1431762497895edc673ace4eaa4b662a89959f0de0e81f1b0c9f190a800";
@@ -1870,6 +1879,55 @@ export default function ProspectTracker() {
   const AIRTABLE_HEADERS = {
     "Authorization": `Bearer ${AIRTABLE_TOKEN}`,
     "Content-Type": "application/json",
+  };
+
+  const loadFromAirtable = async () => {
+    setLoadingFromAirtable(true);
+    setAirtableLoadError(null);
+    try {
+      let allRecords = [];
+      let offset = null;
+      do {
+        const url = offset ? `${AIRTABLE_URL}?offset=${offset}` : AIRTABLE_URL;
+        const res = await fetch(url, { headers: AIRTABLE_HEADERS });
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.error?.message || "API error");
+        allRecords = allRecords.concat(json.records || []);
+        offset = json.offset || null;
+      } while (offset);
+
+      if (allRecords.length === 0) {
+        setAirtableLoadError("empty");
+        return;
+      }
+
+      const mapped = allRecords.map(r => ({
+        id: Number(r.fields["ID"]) || r.id,
+        name: r.fields["Name"] || "",
+        sector: r.fields["Sector"] || SECTORS[0],
+        stage: r.fields["Stage"] || "Identified",
+        budget: r.fields["Budget"] || "Unknown",
+        storyReady: r.fields["Story Readiness"] || "No Story Yet",
+        priority: r.fields["Priority"] === "Yes",
+        mission: r.fields["Mission"] || "",
+        contacts: r.fields["Contacts"] || "",
+        notes: r.fields["Notes"] || "",
+        nextAction: r.fields["Next Action"] || "",
+        lastTouch: r.fields["Last Touch"] || "",
+        website: r.fields["Website"] || "",
+        youtube: r.fields["YouTube"] || "",
+        linkedinCompany: r.fields["LinkedIn Company"] || "",
+        linkedinPeople: r.fields["LinkedIn People"] || "",
+      }));
+
+      setProspects(mapped);
+      try { localStorage.setItem("tol_v3", JSON.stringify(mapped)); } catch {}
+    } catch (err) {
+      console.warn("Airtable load failed, using cached data:", err);
+      setAirtableLoadError("network");
+    } finally {
+      setLoadingFromAirtable(false);
+    }
   };
 
   const syncToSheets = async () => {
@@ -1959,6 +2017,7 @@ export default function ProspectTracker() {
   };
 
   useEffect(() => { try{localStorage.setItem("tol_v3",JSON.stringify(prospects));}catch{} }, [prospects]);
+  useEffect(() => { loadFromAirtable(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const filtered = useMemo(() => {
     let list = prospects.filter(p => {
@@ -2008,8 +2067,52 @@ export default function ProspectTracker() {
     return c;
   },[prospects]);
 
+  const PASSPHRASE = "tolprospects";
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (pwInput === PASSPHRASE) {
+      setUnlocked(true);
+      try { localStorage.setItem("tol_unlocked","true"); } catch {}
+    } else {
+      setPwError(true);
+      setPwInput("");
+      setTimeout(()=>setPwError(false), 820);
+    }
+  };
+
   return (
     <div style={{fontFamily:"'Inter','Helvetica Neue',Arial,sans-serif",background:"#ffffff",minHeight:"100vh",color:"#1a1a2e"}}>
+
+      {/* PASSWORD GATE — fixed overlay, covers app when locked */}
+      {!unlocked&&(
+        <div style={{position:"fixed",inset:0,background:"#ffffff",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",zIndex:9999}}>
+          <style>{`
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+            @keyframes pw-shake{0%,100%{transform:translateX(0)}15%,45%,75%{transform:translateX(-6px)}30%,60%,90%{transform:translateX(6px)}}
+            .pw-shake{animation:pw-shake 0.75s ease;}
+          `}</style>
+          <div style={{marginBottom:32,textAlign:"center"}}>
+            <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#aaaabd",letterSpacing:"0.22em",textTransform:"uppercase",marginBottom:10}}>Think Out Loud</div>
+            <div style={{fontFamily:"'Inter',sans-serif",fontSize:22,fontWeight:600,color:"#1a1a2e",letterSpacing:"0.01em"}}>Prospect Tracker</div>
+            <div style={{width:32,height:1,background:"#e2e4e9",margin:"14px auto 0"}}/>
+          </div>
+          <form onSubmit={handlePasswordSubmit} style={{display:"flex",flexDirection:"column",gap:12,width:280}}>
+            <input
+              type="password"
+              value={pwInput}
+              onChange={e=>{setPwInput(e.target.value);setPwError(false);}}
+              placeholder="Enter password"
+              autoFocus
+              className={pwError?"pw-shake":""}
+              style={{background:"#ffffff",border:`1px solid ${pwError?"#dc2626":"#d0d3dd"}`,color:"#1a1a2e",padding:"9px 13px",borderRadius:2,fontFamily:"'Inter',sans-serif",fontSize:13,outline:"none",transition:"border-color 0.2s",width:"100%",textAlign:"center",letterSpacing:"0.12em"}}
+            />
+            {pwError&&<div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#dc2626",textAlign:"center",letterSpacing:"0.08em"}}>Incorrect password</div>}
+            <button type="submit" style={{background:"#2563eb",color:"#ffffff",border:"none",padding:"9px 0",borderRadius:2,fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.14em",textTransform:"uppercase",fontWeight:500,cursor:"pointer"}}>Enter</button>
+          </form>
+          <div style={{marginTop:48,fontFamily:"'JetBrains Mono',monospace",fontSize:8,color:"#d0d3dd",letterSpacing:"0.1em"}}>Internal use only</div>
+        </div>
+      )}
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
         *{box-sizing:border-box;}
@@ -2035,6 +2138,9 @@ export default function ProspectTracker() {
         .sort-btn{background:none;border:none;cursor:pointer;color:#888899;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;padding:2px 6px;transition:color 0.15s;}
         .sort-btn:hover,.sort-btn.on{color:#2563eb;}
         .priority-dot{width:5px;height:5px;border-radius:50%;background:#2563eb;display:inline-block;}
+        @keyframes pw-shake{0%,100%{transform:translateX(0)}15%,45%,75%{transform:translateX(-6px)}30%,60%,90%{transform:translateX(6px)}}
+        .pw-shake{animation:pw-shake 0.75s ease;}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
       `}</style>
 
       {/* Header */}
@@ -2062,6 +2168,10 @@ export default function ProspectTracker() {
                 opacity:syncStatus==="syncing"?0.8:1,
               }}>
               {syncStatus==="syncing"?"Syncing…": syncStatus==="success"?"✓ Synced": syncStatus==="error"?"✗ Failed":"↑ Sync to Sheets"}
+            </button>
+            <button className="btn" onClick={loadFromAirtable} disabled={loadingFromAirtable}
+              style={{background:"#f0f1f6",color:"#444",border:"1px solid #d0d3dd",padding:"6px 14px",borderRadius:2,fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.1em",textTransform:"uppercase",fontWeight:500,cursor:loadingFromAirtable?"wait":"pointer",opacity:loadingFromAirtable?0.7:1,transition:"opacity 0.2s"}}>
+              {loadingFromAirtable?"Loading…":"↓ Refresh"}
             </button>
           </div>
         </div>
@@ -2107,8 +2217,28 @@ export default function ProspectTracker() {
       {/* Main */}
       <div style={{maxWidth:1500,margin:"0 auto",padding:"20px 28px"}}>
 
+        {/* AIRTABLE LOADING STATE */}
+        {loadingFromAirtable&&(
+          <div style={{display:"flex",alignItems:"center",gap:10,padding:"40px 0",justifyContent:"center"}}>
+            <div style={{width:8,height:8,borderRadius:"50%",background:"#2563eb",animation:"pulse 1s ease-in-out infinite"}}/>
+            <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:11,color:"#888899",letterSpacing:"0.1em"}}>Loading prospects...</span>
+          </div>
+        )}
+
+        {/* AIRTABLE ERROR BANNERS (non-blocking) */}
+        {!loadingFromAirtable&&airtableLoadError==="network"&&(
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#d97706",letterSpacing:"0.08em",padding:"6px 12px",background:"#fffbeb",border:"1px solid #fde68a",borderRadius:2,marginBottom:12,display:"flex",alignItems:"center",gap:8}}>
+            <span>⚠</span><span>Could not reach Airtable — showing locally cached data. Sync when connected.</span>
+          </div>
+        )}
+        {!loadingFromAirtable&&airtableLoadError==="empty"&&(
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#888899",letterSpacing:"0.08em",padding:"6px 12px",background:"#f8f9fa",border:"1px solid #e2e4e9",borderRadius:2,marginBottom:12}}>
+            Airtable table is empty — showing local data. Use ↑ Sync to Sheets to push records up.
+          </div>
+        )}
+
         {/* LIST VIEW */}
-        {view==="list" && (
+        {!loadingFromAirtable&&view==="list" && (
           <div style={{display:"flex",gap:20}}>
             {/* Table */}
             <div style={{flex:selectedId?"0 0 560px":"1",overflowY:"auto",maxHeight:"calc(100vh - 180px)"}}>
@@ -2218,7 +2348,7 @@ export default function ProspectTracker() {
         )}
 
         {/* BOARD VIEW */}
-        {view==="board" && (
+        {!loadingFromAirtable&&view==="board" && (
           <div style={{display:"flex",gap:14,overflowX:"auto",paddingBottom:16}}>
             {STAGES.map(stage=>(
               <div key={stage} style={{minWidth:210,flex:"0 0 210px"}}>
@@ -2257,7 +2387,7 @@ export default function ProspectTracker() {
         )}
 
         {/* SECTORS VIEW */}
-        {view==="sectors" && (
+        {!loadingFromAirtable&&view==="sectors" && (
           <div>
             <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))",gap:16}}>
               {SECTORS.filter(s=>sectorCounts[s]>0).map(s=>{
