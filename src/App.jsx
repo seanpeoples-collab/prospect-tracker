@@ -1858,6 +1858,7 @@ export default function ProspectTracker() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [sortBy, setSortBy] = useState("name");
+  const [filterStat, setFilterStat] = useState("all"); // "all"|"priority"|"clearPitch"|"active"|"stale"
   const [form, setForm] = useState({name:"",sector:SECTORS[0],stage:"Identified",budget:"Unknown",storyReady:"No Story Yet",mission:"",contacts:"",notes:"",lastTouch:"",nextAction:"",website:"",youtube:"",linkedinCompany:"",linkedinPeople:"",priority:false});
   const [syncStatus, setSyncStatus] = useState("idle"); // idle | syncing | success | error
   const [lastSynced, setLastSynced] = useState(() => { try { return localStorage.getItem("tol_last_synced")||null; } catch { return null; }});
@@ -1964,6 +1965,10 @@ export default function ProspectTracker() {
       if (filterStage!=="All" && p.stage!==filterStage) return false;
       if (filterSector!=="All" && p.sector!==filterSector) return false;
       if (filterStory!=="All" && p.storyReady!==filterStory) return false;
+      if (filterStat==="priority" && !p.priority) return false;
+      if (filterStat==="clearPitch" && !(p.storyReady==="Clear Pitch"||p.storyReady==="Pitch Sent")) return false;
+      if (filterStat==="active" && !["In Conversation","Proposal Sent"].includes(p.stage)) return false;
+      if (filterStat==="stale" && !(p.lastTouch&&daysSince(p.lastTouch)>60)) return false;
       if (searchQuery) { const q=searchQuery.toLowerCase(); return p.name.toLowerCase().includes(q)||p.sector.toLowerCase().includes(q)||p.mission.toLowerCase().includes(q)||p.notes.toLowerCase().includes(q); }
       return true;
     });
@@ -1974,7 +1979,7 @@ export default function ProspectTracker() {
       if (sortBy==="priority") return (b.priority?1:0)-(a.priority?1:0);
       return 0;
     });
-  }, [prospects, filterStage, filterSector, filterStory, searchQuery, sortBy]);
+  }, [prospects, filterStage, filterSector, filterStory, filterStat, searchQuery, sortBy]);
 
   const selected = prospects.find(p=>p.id===selectedId);
   const openNew = () => { setEditingId(null); setForm({name:"",sector:SECTORS[0],stage:"Identified",budget:"Unknown",storyReady:"No Story Yet",mission:"",contacts:"",notes:"",lastTouch:"",nextAction:"",website:"",youtube:"",linkedinCompany:"",linkedinPeople:"",priority:false}); setShowForm(true); };
@@ -2065,12 +2070,16 @@ export default function ProspectTracker() {
       {/* Stats */}
       <div style={{borderBottom:"1px solid #e8eaed",padding:"14px 28px"}}>
         <div style={{maxWidth:1500,margin:"0 auto",display:"flex",gap:40,alignItems:"center"}}>
-          {[["total","Total"],[`priority`,"Priority"],["clearPitch","Pitch Ready"],["active","Active"],["stale","Stale 60d+"]].map(([k,l])=>(
-            <div key={k}>
-              <div className="stat-n" style={{color:k==="stale"&&stats[k]>0?"#dc2626":"#2563eb"}}>{stats[k]}</div>
-              <div className="stat-l">{l}</div>
-            </div>
-          ))}
+          {[["total","Total"],["priority","Priority"],["clearPitch","Pitch Ready"],["active","Active"],["stale","Stale 60d+"]].map(([k,l])=>{
+            const isActive = filterStat===k || (k==="total"&&filterStat==="all");
+            return (
+              <div key={k} onClick={()=>setFilterStat(filterStat===k||k==="total"?"all":k)}
+                style={{cursor:"pointer",paddingBottom:2,borderBottom:isActive?"2px solid #2563eb":"2px solid transparent",transition:"border-color 0.15s"}}>
+                <div className="stat-n" style={{color:k==="stale"&&stats[k]>0?"#dc2626":"#2563eb"}}>{stats[k]}</div>
+                <div className="stat-l">{l}</div>
+              </div>
+            );
+          })}
           {lastSynced&&(
             <div style={{marginLeft:8}}>
               <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#059669",letterSpacing:"0.08em"}}>✓ Sheets synced</div>
