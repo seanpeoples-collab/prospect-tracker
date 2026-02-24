@@ -1901,24 +1901,27 @@ export default function ProspectTracker() {
         return;
       }
 
-      const mapped = allRecords.map(r => ({
-        id: Number(r.fields["ID"]) || r.id,
-        name: r.fields["Name"] || "",
-        sector: r.fields["Sector"] || SECTORS[0],
-        stage: r.fields["Stage"] || "Identified",
-        budget: r.fields["Budget"] || "Unknown",
-        storyReady: r.fields["Story Readiness"] || "No Story Yet",
-        priority: r.fields["Priority"] === "Yes",
-        mission: r.fields["Mission"] || "",
-        contacts: r.fields["Contacts"] || "",
-        notes: r.fields["Notes"] || "",
-        nextAction: r.fields["Next Action"] || "",
-        lastTouch: r.fields["Last Touch"] || "",
-        website: r.fields["Website"] || "",
-        youtube: r.fields["YouTube"] || "",
-        linkedinCompany: r.fields["LinkedIn Company"] || "",
-        linkedinPeople: r.fields["LinkedIn People"] || "",
-      }));
+      const mapped = allRecords
+        .filter(r => r.fields["Name"] && r.fields["Name"].trim())
+        .map(r => ({
+          id: Number(r.fields["ID"]) || r.id,
+          _airtableId: r.id,
+          name: r.fields["Name"] || "",
+          sector: r.fields["Sector"] || SECTORS[0],
+          stage: r.fields["Stage"] || "Identified",
+          budget: r.fields["Budget"] || "Unknown",
+          storyReady: r.fields["Story Readiness"] || "No Story Yet",
+          priority: r.fields["Priority"] === "Yes",
+          mission: r.fields["Mission"] || "",
+          contacts: r.fields["Contacts"] || "",
+          notes: r.fields["Notes"] || "",
+          nextAction: r.fields["Next Action"] || "",
+          lastTouch: r.fields["Last Touch"] || "",
+          website: r.fields["Website"] || "",
+          youtube: r.fields["YouTube"] || "",
+          linkedinCompany: r.fields["LinkedIn Company"] || "",
+          linkedinPeople: r.fields["LinkedIn People"] || "",
+        }));
 
       setProspects(mapped);
       try { localStorage.setItem("tol_v3", JSON.stringify(mapped)); } catch {}
@@ -2021,6 +2024,7 @@ export default function ProspectTracker() {
 
   const filtered = useMemo(() => {
     let list = prospects.filter(p => {
+      if (!p.name || !p.name.trim()) return false;
       if (filterStage!=="All" && p.stage!==filterStage) return false;
       if (filterSector!=="All" && p.sector!==filterSector) return false;
       if (filterStory!=="All" && p.storyReady!==filterStory) return false;
@@ -2049,7 +2053,18 @@ export default function ProspectTracker() {
     else setProspects(prev=>[...prev,{...form,id:Date.now()}]);
     setShowForm(false);
   };
-  const deleteProspect = (id) => { setProspects(prev=>prev.filter(p=>p.id!==id)); if(selectedId===id) setSelectedId(null); };
+  const deleteProspect = async (id) => {
+    const prospect = prospects.find(p => p.id === id);
+    setProspects(prev => prev.filter(p => p.id !== id));
+    if (selectedId === id) setSelectedId(null);
+    if (prospect?._airtableId) {
+      try {
+        await fetch(`${AIRTABLE_URL}/${prospect._airtableId}`, { method:"DELETE", headers:AIRTABLE_HEADERS });
+      } catch (err) {
+        console.warn("Failed to delete from Airtable:", err);
+      }
+    }
+  };
   const advanceStage = (id) => { setProspects(prev=>prev.map(p=>{ if(p.id!==id) return p; const i=STAGES.indexOf(p.stage); return i<STAGES.length-1?{...p,stage:STAGES[i+1]}:p; })); };
   const logTouch = (id) => { const today=new Date().toISOString().split("T")[0]; setProspects(prev=>prev.map(p=>p.id===id?{...p,lastTouch:today}:p)); };
 
@@ -2167,7 +2182,7 @@ export default function ProspectTracker() {
                 transition:"all 0.2s",cursor:syncStatus==="syncing"?"wait":"pointer",
                 opacity:syncStatus==="syncing"?0.8:1,
               }}>
-              {syncStatus==="syncing"?"Syncing…": syncStatus==="success"?"✓ Synced": syncStatus==="error"?"✗ Failed":"↑ Sync to Sheets"}
+              {syncStatus==="syncing"?"Saving…": syncStatus==="success"?"✓ Saved": syncStatus==="error"?"✗ Failed":"Save"}
             </button>
             <button className="btn" onClick={loadFromAirtable} disabled={loadingFromAirtable}
               style={{background:"#f0f1f6",color:"#444",border:"1px solid #d0d3dd",padding:"6px 14px",borderRadius:2,fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.1em",textTransform:"uppercase",fontWeight:500,cursor:loadingFromAirtable?"wait":"pointer",opacity:loadingFromAirtable?0.7:1,transition:"opacity 0.2s"}}>
@@ -2192,7 +2207,7 @@ export default function ProspectTracker() {
           })}
           {lastSynced&&(
             <div style={{marginLeft:8}}>
-              <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#059669",letterSpacing:"0.08em"}}>✓ Sheets synced</div>
+              <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#059669",letterSpacing:"0.08em"}}>✓ Saved</div>
               <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#aaaabd",marginTop:2}}>{lastSynced}</div>
             </div>
           )}
@@ -2233,7 +2248,7 @@ export default function ProspectTracker() {
         )}
         {!loadingFromAirtable&&airtableLoadError==="empty"&&(
           <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:"#888899",letterSpacing:"0.08em",padding:"6px 12px",background:"#f8f9fa",border:"1px solid #e2e4e9",borderRadius:2,marginBottom:12}}>
-            Airtable table is empty — showing local data. Use ↑ Sync to Sheets to push records up.
+            Airtable table is empty — showing local data. Use Save to push records up.
           </div>
         )}
 
